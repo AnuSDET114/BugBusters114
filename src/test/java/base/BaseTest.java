@@ -67,7 +67,7 @@ public class BaseTest {
 		//implicit wait of 10secs
 		//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		
-		
+		//Test comment
 		
 		
 	}
