@@ -44,7 +44,7 @@ public class BaseTest {
 		else if(browser.equalsIgnoreCase("firefox")) {
 		
 			WebDriverManager.firefoxdriver().setup();
-		    driver = new ChromeDriver();
+		    driver = new FirefoxDriver();
 
 		    
 		}
