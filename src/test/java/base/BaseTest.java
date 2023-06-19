@@ -3,12 +3,15 @@ package base;
 import java.time.Duration;
 
 import org.bouncycastle.util.Properties;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import utilities.ReadConfig;
@@ -27,21 +30,22 @@ public class BaseTest {
 		
 		//if(driver == null) {
 		      
-			//Properties.load(fis);
+			//Properties.load(Figs);
 		//}
 		
 		if(browser.equalsIgnoreCase("chrome")) {
 			
 			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
-			driver.get("url");
+			driver.manage().window().maximize();
+
 			
 		}
 		else if(browser.equalsIgnoreCase("firefox")) {
 		
 			WebDriverManager.firefoxdriver().setup();
-		    driver = new ChromeDriver();
-		    driver.get("url");
+		    driver = new FirefoxDriver();
+
 		    
 		}
 		
@@ -49,14 +53,23 @@ public class BaseTest {
 			
 			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
-			driver.get("url");
+
 			
 		}	
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		
-		//implicit wait of 10secs
-	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	}
 	
+	@BeforeMethod
+	public void launchURL() {
+		driver.get(url);
+		//implicit wait of 10secs
+	    
+	    driver.findElement(By.className("btn")).click();
+	}
+	
+
 	@AfterTest
 	public void teardown() {
 		
@@ -64,12 +77,8 @@ public class BaseTest {
 		System.out.println("Teardown successful");
 		
 	}
-		//implicit wait of 10secs
-		//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		
 		
-		
-		
-	}
+}
 
 
