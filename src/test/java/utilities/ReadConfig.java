@@ -9,7 +9,7 @@ public class ReadConfig {
 	
 	 Properties properties;
 	
-	String path = "C:\\Users\\nihar\\eclipse-workspace\\SeleniumAutomationFramework\\DSAlgoProject\\src\\test\\resources\\configfiles\\config.properties";
+	String path = "src/test/resources/configfiles/config.properties";
 	
 	//constructor
     public ReadConfig() {
