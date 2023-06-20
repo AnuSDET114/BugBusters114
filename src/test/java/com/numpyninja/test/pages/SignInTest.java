@@ -23,7 +23,7 @@ public class SignInTest  extends BaseTest
 	public void validateInvalidUserName() {
 		HomePage homePage=new HomePage(driver);
 		SignInPage signInPage = homePage.gotoLoginPage();
-		signInPage.login("Sunanda123", "sunasdet112");
+		signInPage.login("sunanda123-", "sunasdet112");
 		assertEquals("Invalid Username and Password",signInPage.getAlertMessage());	
 	}
 	 

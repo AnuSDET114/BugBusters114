@@ -21,10 +21,73 @@ WebDriver driver;
 	
 	@FindBy(name="username")
 	WebElement usernameElement;
+	
+	@FindBy(name="password1")
+	WebElement paswordElement;
+	
+	@FindBy(name="password2")
+	WebElement cofirmationpaswordElement;
+	
+	@FindBy(css="input[type='submit']")
+	WebElement registerlinkElement;
+	
+	@FindBy(css="a[href='/login']")
+	WebElement loginlinkElement;
+	
+	@FindBy(css=".alert.alert-primary")
+	WebElement errormessage1;
+	
+	
+	
+	public void performRegistrationPage(String userName,String password,String confirmationpassword)
+	{
+		usernameElement.sendKeys(userName);
+//		if(password != null)
+			paswordElement.sendKeys(password);
+		
+//		if(confirmationpassword != null)
+			cofirmationpaswordElement.sendKeys(confirmationpassword);
+		
+		registerlinkElement.click();
+		
+	}
+	public void clickOnRegister()
+	{
+		registerlinkElement.click();
+	}
+	public String getuserNameValidationMessage()
+	{
+		return usernameElement.getAttribute("validationMessage");
+	}
+	
+	public String getPasswordValidationMessage()
+	{
+		return paswordElement.getAttribute("validationMessage");
+	}
+	
+	public String getValidationMessage(String elementName)
+	{
+		switch(elementName)
+		{
+			case "userName": return usernameElement.getAttribute("validationMessage");
+			case "password": return paswordElement.getAttribute("validationMessage");
+			case "confirmationPassword" : return cofirmationpaswordElement.getAttribute("validationMessage");
+		}
+		return null;
+	}
+	
+	
+	
 	public void WaitUntilPageIsFound(WebDriver driver)
 	{
 		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(5));
 		wait.until(ExpectedConditions.visibilityOf(usernameElement));
+	}
+	
+	public String getAlertMessage()
+	{
+		
+		return errormessage1.getText();
 	}
 	
 }

@@ -32,6 +32,10 @@ public class HomePage
 	
 	@FindBy(css=".alert.alert-primary")
 	WebElement errorMessage;
+	
+	@FindBy(css="a[href='/register']")
+	WebElement registerelement;
+	
 
 	public void goToDataStructuresPage()
 	{
@@ -67,5 +71,13 @@ public class HomePage
 		array.click();
 	}
 	
+	public  RegisterPage goToRegisterPage()
+	{
+		
+		registerelement.click();
+		RegisterPage registerPage=new RegisterPage(driver); 
+		registerPage.WaitUntilPageIsFound(driver);
+		return registerPage;
+	}
 	
 }
