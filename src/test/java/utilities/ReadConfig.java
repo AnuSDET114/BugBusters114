@@ -45,6 +45,16 @@ public class ReadConfig {
     		throw new RuntimeException("url not specified in config file");
     }
     
+    public String getExcelPath()
+    {
+    	String value = properties.getProperty("excelPath");
+    	
+    	if(value!=null)
+    		return value;
+    	else
+    		throw new RuntimeException("excelPath not specified in config file");
+    }
+    
     
     	
     	

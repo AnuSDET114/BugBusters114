@@ -2,14 +2,25 @@ package com.numpyninja.test.pages;
 
 import static org.testng.Assert.assertEquals;
 
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import base.BaseTest;
 import pages.HomePage;
 import pages.SignInPage;
+import utilities.ExcelReader;
 
 public class SignInTest  extends BaseTest
 {
+	
+	ExcelReader excelReader;
+	
+	@BeforeTest
+	public void readExcel() {
+		excelReader = new ExcelReader("signindata", readConfig.getExcelPath());
+		
+	}
+	
 	@Test
 	public void validateSignInSuccessFully()
 	{
@@ -23,8 +34,8 @@ public class SignInTest  extends BaseTest
 	public void validateInvalidUserName() {
 		HomePage homePage=new HomePage(driver);
 		SignInPage signInPage = homePage.gotoLoginPage();
-		signInPage.login("sunanda123-", "sunasdet112");
-		assertEquals("Invalid Username and Password",signInPage.getAlertMessage());	
+		signInPage.login(excelReader.getGivenColumnFromExcel(3, "username"), excelReader.getGivenColumnFromExcel(3, "password"));
+		assertEquals(excelReader.getGivenColumnFromExcel(3, "expectedmessage"),signInPage.getAlertMessage());	
 	}
 	 
 	@Test

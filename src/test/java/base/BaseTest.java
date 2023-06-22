@@ -22,7 +22,7 @@ import utilities.ReadConfig;
 
 public class BaseTest {
 	
-	ReadConfig readConfig = new ReadConfig();
+	public ReadConfig readConfig = new ReadConfig();
 	
 	String url = readConfig.getTestUrl();
 	String browser = readConfig.getBrowser();
