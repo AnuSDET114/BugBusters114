@@ -1,9 +1,15 @@
 package base;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 
-import org.bouncycastle.util.Properties;
+import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -11,8 +17,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 import utilities.ReadConfig;
 
@@ -24,6 +28,7 @@ public class BaseTest {
 	String browser = readConfig.getBrowser();
 	
 	public static WebDriver driver;
+	public static Logger logger;
 	
 	@BeforeTest
 	public void setup() {
@@ -59,6 +64,9 @@ public class BaseTest {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		
+		//for logging
+		logger = Logger.getLogger("DSAlgo");
+		PropertyConfigurator.configure("log4j2.prperties");
 	}
 	
 	@BeforeMethod
@@ -78,7 +86,24 @@ public class BaseTest {
 		
 	}
 		
+	public void captureScreenShot(WebDriver driver,String testName) throws IOException
+	{
+		//step1: convert webdriver object to TakesScreenShot interface
+		TakesScreenshot screenshot = ((TakesScreenshot)driver);
 		
-}
+		//step2: call getScreenshotAs method to create image file
+		
+		File src = screenshot.getScreenshotAs(OutputType.FILE);
+		File dest = new File(System.getProperty("user.dir")+ "//Screenshots//" + testName + ".png");
+		
+		//step3: copy image file to destination
+		FileUtils.copyFile(src, dest);
+		
+	}
+		
+		
+	}
+		
+
 
 
