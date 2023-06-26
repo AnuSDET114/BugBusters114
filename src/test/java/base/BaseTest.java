@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.time.Duration;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -18,6 +19,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import pages.HomePage;
 import utilities.ReadConfig;
 
 public class BaseTest {
@@ -28,7 +30,7 @@ public class BaseTest {
 	String browser = readConfig.getBrowser();
 	
 	public static WebDriver driver;
-	public static Logger logger;
+	public static Logger logger = LogManager.getLogger(HomePage.class);
 	
 	@BeforeTest
 	public void setup() {
@@ -65,8 +67,8 @@ public class BaseTest {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		
 		//for logging
-		logger = Logger.getLogger("DSAlgo");
-		PropertyConfigurator.configure("log4j2.prperties");
+		
+//		PropertyConfigurator.configure("log4j2.properties");
 	}
 	
 	@BeforeMethod

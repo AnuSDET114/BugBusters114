@@ -1,12 +1,19 @@
 package pages;
 
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+
+
 public class HomePage {
 	WebDriver driver;
+	
+	public static Logger logger = LogManager.getLogger(HomePage.class);
 
 	public HomePage(WebDriver driver) {
 		this.driver = driver;
@@ -42,8 +49,6 @@ public class HomePage {
 	}
 	
 	public LinkedListpage goToLinkedListPage() {
-		SignInPage signInPage = gotoLoginPage();
-		signInPage.successfullSignIn("sunandab", "sunasdet112");
 		dropDown();
 		linkedlistelement.click();
 		LinkedListpage linkedListpage = new LinkedListpage(driver);
@@ -72,7 +77,9 @@ public class HomePage {
 	}
 
 	public SignInPage gotoLoginPage() {
+		logger.info("Click on "+signInElement.getText()+" link on Home page");
 		signInElement.click();
+		logger.info("Title of the login page is "+driver.getTitle());
 		SignInPage signin = new SignInPage(driver);
 		return signin;
 
@@ -84,11 +91,12 @@ public class HomePage {
 	}
 
 	public void dropDownArray() {
+		logger.info("Click on "+dropDown.getText());
 		array.click();
 	}
 
 	public RegisterPage goToRegisterPage() {
-
+		logger.info("Click on "+registerelement.getText()+" link on register page");
 		registerelement.click();
 		RegisterPage registerPage = new RegisterPage(driver);
 		registerPage.WaitUntilPageIsFound(driver);

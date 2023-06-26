@@ -1,9 +1,12 @@
 package pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
 
 public class SignInPage 
 {
@@ -14,6 +17,7 @@ public class SignInPage
 		this.driver=driver;
 		PageFactory.initElements(driver,this);
 	}	
+	public static Logger logger = LogManager.getLogger(SignInPage.class);
 
 	@FindBy(name="username")
 	WebElement usernameElement;
@@ -34,7 +38,9 @@ public class SignInPage
 	public HomePage successfullSignIn(String userName, String password) {
 		login(userName, password);
 		HomePage HomePage = new HomePage(driver);
+		logger.info("user redirected to homepage");
 		return HomePage;
+		
 	}
 	@FindBy(css=".alert.alert-primary")
 	WebElement errorMessage;
@@ -52,6 +58,7 @@ public class SignInPage
 	{
 		
 		registerelement.click();
+		logger.info("click on" +registerelement.getText()+ "in siginpage");
 		RegisterPage registerPage=new RegisterPage(driver); 
 		registerPage.WaitUntilPageIsFound(driver);
 		return registerPage;
