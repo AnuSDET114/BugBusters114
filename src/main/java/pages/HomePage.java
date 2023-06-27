@@ -44,10 +44,15 @@ public class HomePage {
 	@FindBy(css = "a[href='/register']")
 	WebElement registerelement;
 
-	public void goToDataStructuresPage() {
-		getStartedElement.click();
-	}
 	
+	public DataStructuresPage goToDataStructuresPage()
+	{
+		dropDown();
+		getStartedElement.click();
+		DataStructuresPage datastructurespage = new DataStructuresPage(driver);
+		return datastructurespage;
+	}
+
 	public LinkedListpage goToLinkedListPage() {
 		dropDown();
 		linkedlistelement.click();
