@@ -31,6 +31,9 @@ public class HomePage {
 
 	@FindBy(xpath = "//a[@href='/linked-list']")
 	WebElement linkedlistelement;
+	
+	@FindBy(xpath = "//a[@href='/stack']")
+	WebElement stackelement;
 
 	@FindBy(xpath = "//a[@href='/register']")
 	WebElement registerElement;
@@ -47,10 +50,17 @@ public class HomePage {
 	
 	public DataStructuresPage goToDataStructuresPage()
 	{
-		dropDown();
+		var s = getStartedElement.getAccessibleName();
 		getStartedElement.click();
 		DataStructuresPage datastructurespage = new DataStructuresPage(driver);
 		return datastructurespage;
+	}
+	
+	public ArrayPage goToArrayPage() {
+		dropDown();
+		array.click();
+		ArrayPage arraypage = new ArrayPage(driver);
+		return arraypage;
 	}
 
 	public LinkedListpage goToLinkedListPage() {
@@ -58,6 +68,13 @@ public class HomePage {
 		linkedlistelement.click();
 		LinkedListpage linkedListpage = new LinkedListpage(driver);
 		return linkedListpage;
+	}
+	
+	public StackPage goToStackPage() {
+		dropDown();
+		stackelement.click();
+		StackPage stackpage = new StackPage(driver);
+		return stackpage;
 	}
 
 	public void gotoPage(String pagename) {
@@ -69,6 +86,10 @@ public class HomePage {
 			break;
 		case "Array":
 			array.click();
+			break;
+			
+		case "Stack":
+			stackelement.click();
 			break;
 		}
 	}
