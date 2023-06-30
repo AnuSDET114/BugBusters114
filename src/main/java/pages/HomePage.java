@@ -47,7 +47,17 @@ public class HomePage {
 	@FindBy(css = "a[href='/register']")
 	WebElement registerelement;
 
+	@FindBy(css = "a[href='/graph']")
+	WebElement graphelement;
 	
+	@FindBy(css = "a[href='/tree']")
+	WebElement treeelement;
+
+	@FindBy(css = "a[href='/queue']")
+	WebElement queuelement;
+
+
+
 	public DataStructuresPage goToDataStructuresPage()
 	{
 		var s = getStartedElement.getAccessibleName();
@@ -76,7 +86,34 @@ public class HomePage {
 		StackPage stackpage = new StackPage(driver);
 		return stackpage;
 	}
+	
 
+	public TreePage goToTreePage() {
+		dropDown();
+		treeelement.click();
+		TreePage treepage = new TreePage(driver);
+		return treepage;
+	}
+	
+
+	public GraphPage goToGraphPage()
+	{
+		dropDown();
+		graphelement.click();
+		GraphPage graphpage = new GraphPage(driver);
+		return graphpage;
+	}
+
+	public QueuePage goToQueuePage()
+	{
+		dropDown();
+		queuelement.click();
+		QueuePage queuepage = new QueuePage(driver);
+		return queuepage;
+	}
+
+	
+	
 	public void gotoPage(String pagename) {
 		dropDown();
 		switch (pagename) {
@@ -87,11 +124,12 @@ public class HomePage {
 		case "Array":
 			array.click();
 			break;
-			
 		case "Stack":
 			stackelement.click();
 			break;
 		}
+		
+		
 	}
 
 	public void dropDown() {
