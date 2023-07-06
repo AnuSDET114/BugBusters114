@@ -31,6 +31,21 @@ public static Logger logger = LogManager.getLogger(ArrayPage.class);
 		@FindBy(xpath = "//a[contains(text(),'Applications of Array')]")
 		WebElement applicationsofarray;
 		
+		@FindBy(xpath = "//a[contains(text(),'Practice Questions')]")
+		WebElement practicequestions;
+		
+		@FindBy(xpath = "//a[contains(text(),'Search the array')]")
+		WebElement searchthearray;
+		
+		@FindBy(xpath = "//a[contains(text(),'Max Consecutive Ones')]")
+		WebElement maxconsecutiveones;
+		
+		@FindBy(xpath = "//a[contains(text(),'Find Numbers with Even Number of Digits')]")
+		WebElement findNumberswithevenNumberofDigits;
+		
+		@FindBy(xpath = "//a[contains(text(),'a Sorted Array')]")
+		WebElement squaresOfASortedArray;
+		
 		@FindBy(xpath = "//a[contains(text(),'Try here>>>')]")
 		WebElement tryeditorelement;
 		
@@ -39,6 +54,9 @@ public static Logger logger = LogManager.getLogger(ArrayPage.class);
 		
 		@FindBy(css = "button[type='button']")
 		WebElement runElement;
+		
+		@FindBy(css = "input[value='Submit']")
+		WebElement submit;
 		
 		@FindBy(id = "output")
 		WebElement outputElement;
@@ -66,6 +84,31 @@ public static Logger logger = LogManager.getLogger(ArrayPage.class);
 			//logger.info("click on" +applicationsofarray.getText());
 		}
 		
+		public void goToPracticeQuestionsPage()
+		{
+			practicequestions.click();
+		}
+		
+		public void goToSearchTheArrayPage()
+		{
+			searchthearray.click();
+		}
+		
+		public void goToMaxConsecutiveOnesPage()
+		{
+			maxconsecutiveones.click();
+		}
+		
+		public void goToFindNumbersWithEvenNumberOfDigitsPage()
+		{
+			findNumberswithevenNumberofDigits.click();
+		}
+		
+		public void goToSquaresOfASortedArrayPage()
+		{
+			squaresOfASortedArray.click();
+		}
+		
 		public String getAlertMessage()
 		{
 			
@@ -91,6 +134,11 @@ public static Logger logger = LogManager.getLogger(ArrayPage.class);
 			runElement.click();
 			
 			
+		}
+		
+		public void goToSubmitPage()
+		{
+			submit.click();
 		}
 		
 		public String getOutputMessage() {

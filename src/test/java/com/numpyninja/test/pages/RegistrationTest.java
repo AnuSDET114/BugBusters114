@@ -1,6 +1,8 @@
 package com.numpyninja.test.pages;
 import static org.testng.Assert.assertEquals;
 
+import java.io.IOException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
@@ -29,18 +31,19 @@ public class RegistrationTest extends BaseTest
 		HomePage homepage=new HomePage(driver);
 		RegisterPage registerPage=homepage.goToRegisterPage();
 		registerPage.performRegistrationPage("sunandab","","");
-		logger.info("Afetr providing creaentials Alertmessage is:" +registerPage.getAlertMessage());
+		logger.info("Afetr providing creaentials Alertmessage is:" +registerPage.getValidationMessage("password"));
 		assertEquals("Please fill out this field.",registerPage.getValidationMessage("password"));
 		
 	}
 	
 	@Test
-	public  void ValidRegistrationWithOutConfirmationPassword()
+	public  void ValidRegistrationWithOutConfirmationPassword() throws IOException
 	{
 		HomePage homepage=new HomePage(driver);
 		RegisterPage registerPage=homepage.goToRegisterPage();
 		registerPage.performRegistrationPage("sunandab","asss112","");
-		logger.info("Afetr providing credentials:" +registerPage.getAlertMessage());
+		logger.info("After providing credentials:" +registerPage.getValidationMessage("confirmationPassword"));
+		captureScreenShot(driver, "ValidRegistrationWithOutConfirmationPassword");
 		assertEquals("Please fill out this field.",registerPage.getValidationMessage("confirmationPassword"));
 		
 	}

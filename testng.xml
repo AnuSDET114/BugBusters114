@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+	<listeners>
+		<listener class-name="utilities.ExtentListener"></listener>
+	</listeners>
+  	<test name="Test">
+    	<classes>
+			<class name="com.numpyninja.test.pages.HomePageTest"></class>
+			<class name="com.numpyninja.test.pages.RegistrationTest"></class>
+			<class name="com.numpyninja.test.pages.SignInTest"></class>
+		</classes>
+  	</test> 
+  	<test name="Test1">
+		  <classes>
+			  <class name="com.numpyninja.test.pages.ArrayPageTest"></class>
+		  </classes>
+	 </test>
+	 <test name="Test2">
+		 <classes>
+			 <class name="com.numpyninja.test.pages.DataStructuresPageTest"></class>
+		 </classes>
+	 </test>
+	 <test name="Test3">
+		 <classes>
+			 <class name="com.numpyninja.test.pages.LinkedListPageTest"></class>
+		 </classes>
+	 </test>
+	 <test name="Test4">
+		 <classes>
+			 <class name="com.numpyninja.test.pages.StackPageTest"></class>
+		 </classes>
+	 </test>
+	 <test name="Test5">
+		 <classes>
+			 <class name="com.numpyninja.test.pages.QueuePageTest"></class>
+		 </classes>
+	 </test>
+	 <test name="Test6">
+		 <classes>
+			 <class name="com.numpyninja.test.pages.TreePageTest"></class>
+		 </classes>
+	 </test>
+	 <test name="Test7">
+		 <classes>
+			 <class name="com.numpyninja.test.pages.GraphPageTest"></class>
+		 </classes>
+	 </test>
+	 
+	 
+	 
+</suite> 
