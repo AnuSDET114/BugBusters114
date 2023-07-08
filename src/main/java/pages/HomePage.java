@@ -3,6 +3,7 @@ package pages;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,7 +22,25 @@ public class HomePage {
 	}
 
 	@FindBy(xpath = "//a[@href='data-structures-introduction']")
-	WebElement getStartedElement;
+	WebElement dataStructuresGetStartedElement;
+	
+	@FindBy(xpath = "//a[@href='array']")
+	WebElement arrayGetStartedElement;
+	
+	@FindBy(xpath = "//a[@href='linked-list']")
+	WebElement linkedListGetStartedElement;
+	
+	@FindBy(xpath = "//a[@href='stack']")
+	WebElement stackGetStartedElement;
+	
+	@FindBy(xpath = "//a[@href='queue']")
+	WebElement queueGetStartedElement;
+	
+	@FindBy(xpath = "//a[@href='tree']")
+	WebElement treeGetStartedElement;
+	
+	@FindBy(xpath = "//a[@href='graph']")
+	WebElement graphGetStartedElement;
 
 	@FindBy(css = ".nav-link.dropdown-toggle")
 	WebElement dropDown;
@@ -55,15 +74,51 @@ public class HomePage {
 
 	@FindBy(css = "a[href='/queue']")
 	WebElement queuelement;
-
-
+	
+	@FindBy(className = "btn")
+	WebElement getStartedBtn;
+	
+	
+	public void clickOnLaunchURLGetStartedButton() {
+		getStartedBtn.click();
+	}
 
 	public DataStructuresPage goToDataStructuresPage()
 	{
-		var s = getStartedElement.getAccessibleName();
-		getStartedElement.click();
+		String s = dataStructuresGetStartedElement.getAccessibleName();
+		dataStructuresGetStartedElement.click();
 		DataStructuresPage datastructurespage = new DataStructuresPage(driver);
 		return datastructurespage;
+	}
+	
+	public void clickOnGetStartedButton(String optionName) {
+		
+		switch(optionName) {
+		case "DataStructures":
+			dataStructuresGetStartedElement.click();
+			break;
+		case "Arrays":
+			arrayGetStartedElement.click();
+			break;
+		case "Linkedlist":
+			linkedListGetStartedElement.click();
+			break;
+		case "Stack":
+			stackGetStartedElement.click();
+			break;
+		case "Queue":
+			queueGetStartedElement.click();
+			break;
+		case "Tree":
+			treeGetStartedElement.click();
+			break;
+		case "Graph":
+			graphGetStartedElement.click();
+			break;
+		
+		
+	}
+		
 	}
 	
 	public ArrayPage goToArrayPage() {
@@ -165,6 +220,10 @@ public class HomePage {
 		RegisterPage registerPage = new RegisterPage(driver);
 		registerPage.WaitUntilPageIsFound(driver);
 		return registerPage;
+	}
+	
+	public void launchHomePage() {
+		driver.get("https://dsportalapp.herokuapp.com/home");
 	}
 
 }

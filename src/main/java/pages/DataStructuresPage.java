@@ -1,7 +1,10 @@
 package pages;
 
+import java.awt.RenderingHints.Key;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -22,6 +25,10 @@ public class DataStructuresPage
 		@FindBy(css = "a[href='time-complexity']")
 		WebElement timecomplexityelement;
 		
+		@FindBy(css = "a[href='/data-structures-introduction/practice']")
+		WebElement practicequestionselement;
+		
+		
 		@FindBy(css = "a[href='/tryEditor']")
 		WebElement tryeditorelement;
 		
@@ -39,6 +46,12 @@ public class DataStructuresPage
 			timecomplexityelement.click();
 						
 		}
+		public void goToPracticeQuestionsPage()
+		{
+			practicequestionselement.click();
+		
+		}
+		
 		
 		public String getAlertMessage()
 		{
@@ -58,10 +71,9 @@ public class DataStructuresPage
 		}
 		
 		public void sendTextToEditorAndRun(String inputText) {
-//			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//			WebElement element = wait.until(
-//			ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".codemirror-line")));
-			new Actions(driver).sendKeys(codeEditorElement, inputText).perform();
+			Actions actions = new Actions(driver);
+			actions.click(codeEditorElement).keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.DELETE).build().perform();
+			actions.sendKeys(codeEditorElement, inputText).perform();
 			//logger.info("passing text on texteditior");
 //			element.sendKeys("hello");
 			runElement.click();
@@ -71,6 +83,10 @@ public class DataStructuresPage
 		
 		public String getOutputMessage() {
 			return outputElement.getText();
+		}
+		
+		public void launchDatastructuresPage() {
+			driver.get("https://dsportalapp.herokuapp.com/data-structures-introduction/");
 		}
 		
 	}

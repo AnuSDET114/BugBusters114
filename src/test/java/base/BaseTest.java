@@ -15,8 +15,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import pages.HomePage;
@@ -32,7 +34,7 @@ public class BaseTest {
 	public static WebDriver driver;
 	public static Logger logger = LogManager.getLogger(HomePage.class);
 	
-	@BeforeTest
+	@BeforeSuite
 	public void setup() {
 		
 		//if(driver == null) {
@@ -66,12 +68,17 @@ public class BaseTest {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		
+		driver.get(url);
+		//implicit wait of 10secs
+	    
+	    
+		
 		//for logging
 		
 //		PropertyConfigurator.configure("log4j2.properties");
 	}
 	
-	@BeforeMethod
+//	@BeforeSuite
 	public void launchURL() {
 		driver.get(url);
 		//implicit wait of 10secs
@@ -80,7 +87,7 @@ public class BaseTest {
 	}
 	
 
-	@AfterTest
+	@AfterSuite
 	public void teardown() {
 		
 		driver.close();

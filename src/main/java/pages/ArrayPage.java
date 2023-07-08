@@ -1,12 +1,17 @@
 package pages;
 
+import java.time.Duration;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ArrayPage 
 {
@@ -31,20 +36,20 @@ public static Logger logger = LogManager.getLogger(ArrayPage.class);
 		@FindBy(xpath = "//a[contains(text(),'Applications of Array')]")
 		WebElement applicationsofarray;
 		
-		@FindBy(xpath = "//a[contains(text(),'Practice Questions')]")
-		WebElement practicequestions;
+		@FindBy(css = "a[href='/array/practice']")
+		WebElement practicequestionselement;
 		
-		@FindBy(xpath = "//a[contains(text(),'Search the array')]")
-		WebElement searchthearray;
+		@FindBy(css = "a[href='/question/1']")
+		WebElement searchthearrayelement;
+																
+		@FindBy(css = "a[href='/question/2']")
+		WebElement maxconsecutiveoneselement;
 		
-		@FindBy(xpath = "//a[contains(text(),'Max Consecutive Ones')]")
-		WebElement maxconsecutiveones;
+		@FindBy(css = "a[href='/question/3']")
+		WebElement findnumberswithevennumberofdigitselement;
 		
-		@FindBy(xpath = "//a[contains(text(),'Find Numbers with Even Number of Digits')]")
-		WebElement findNumberswithevenNumberofDigits;
-		
-		@FindBy(xpath = "//a[contains(text(),'a Sorted Array')]")
-		WebElement squaresOfASortedArray;
+		@FindBy(css = "a[href='/question/4']")
+		WebElement squaresofsortedarrayelement;
 		
 		@FindBy(xpath = "//a[contains(text(),'Try here>>>')]")
 		WebElement tryeditorelement;
@@ -55,8 +60,8 @@ public static Logger logger = LogManager.getLogger(ArrayPage.class);
 		@FindBy(css = "button[type='button']")
 		WebElement runElement;
 		
-		@FindBy(css = "input[value='Submit']")
-		WebElement submit;
+		@FindBy(css = "input[type='Submit']")
+		WebElement submitElement;
 		
 		@FindBy(id = "output")
 		WebElement outputElement;
@@ -68,46 +73,55 @@ public static Logger logger = LogManager.getLogger(ArrayPage.class);
 		}
 		public void goToArraysUsingListPage()
 		{
+			launchArrayPage();
 			arraysusinglist.click();
 			//logger.info("click on" +arrraysusinglist.getText());
 		}
 		
 		public void goToBasicOperationsInListsPage()
 		{
+			launchArrayPage();
 			basicoperationsinlists.click();
 			//logger.info("click on" +basicoperationsinlists.getText());
 		}
 		
 		public void goToApplicationsOfArrayPage()
 		{
+			launchArrayPage();
 			applicationsofarray.click();
 			//logger.info("click on" +applicationsofarray.getText());
 		}
 		
 		public void goToPracticeQuestionsPage()
 		{
-			practicequestions.click();
+			practicequestionselement.click();
+		
 		}
 		
 		public void goToSearchTheArrayPage()
 		{
-			searchthearray.click();
+			searchthearrayelement.click();
+		
 		}
 		
 		public void goToMaxConsecutiveOnesPage()
 		{
-			maxconsecutiveones.click();
+			maxconsecutiveoneselement.click();
+		
 		}
 		
-		public void goToFindNumbersWithEvenNumberOfDigitsPage()
+		public void goToFindNumberWithEvenofDigitsPage()
 		{
-			findNumberswithevenNumberofDigits.click();
+			findnumberswithevennumberofdigitselement.click();
+		
 		}
 		
-		public void goToSquaresOfASortedArrayPage()
+		public void goToSquaresOfSortedArrayPage()
 		{
-			squaresOfASortedArray.click();
+			squaresofsortedarrayelement.click();
+		
 		}
+		
 		
 		public String getAlertMessage()
 		{
@@ -124,25 +138,46 @@ public static Logger logger = LogManager.getLogger(ArrayPage.class);
 			//logger.info("click on Run" +tryeditorelement.getText());
 		}
 		
-		public void sendTextToEditorAndRun(String inputText) {
+		public void sendTextToEditorAndRun(String inputText,String buttonName) {
+			
 //			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 //			WebElement element = wait.until(
 //			ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".codemirror-line")));
-			new Actions(driver).sendKeys(codeEditorElement, inputText).perform();
+			Actions actions = new Actions(driver);
+			actions.click(codeEditorElement).keyDown(Keys.CONTROL)
+		    .sendKeys("a")
+		    .keyUp(Keys.CONTROL)
+		    .sendKeys(Keys.DELETE).build().perform();
+			actions.sendKeys(codeEditorElement, inputText).perform();
 			//logger.info("passing text on texteditior");
 //			element.sendKeys("hello");
-			runElement.click();
+			if(buttonName.equalsIgnoreCase("run"))
+			{
+				runElement.click();
+			}else {
+				submitElement.click();
+			}
+			
 			
 			
 		}
 		
-		public void goToSubmitPage()
-		{
-			submit.click();
-		}
 		
 		public String getOutputMessage() {
 			return outputElement.getText();
+		}
+		
+		public void launchArrayPage() {
+			driver.get("https://dsportalapp.herokuapp.com/array/");
+		}
+		
+		public void launchPracticeQuestionsPage() {
+			driver.get("https://dsportalapp.herokuapp.com/array/practice");
+		}
+		
+		public void waitUntilElementVisible() {
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));    
+			wait.until(ExpectedConditions.visibilityOf(outputElement));
 		}
 		
 		

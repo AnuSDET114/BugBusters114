@@ -1,5 +1,8 @@
 package com.numpyninja.test.pages;
 
+
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -16,26 +19,26 @@ public class StackPageTest extends BaseTest
 {
 	
 	ExcelReader excelReader;
-	HomePage homepage;
+	StackPage stackpage;
 	public static Logger logger = LogManager.getLogger(StackPageTest.class);
 	
 	@BeforeTest
 	public void initializeReader()
 	{
-		launchURL();
-		homepage=new HomePage(driver);
-		SignInPage  signinpage =homepage.gotoLoginPage();
-		signinpage.successfullSignIn("sunandab", "sunasdet112");
+	
+		HomePage homepage=new HomePage(driver);
+		homepage.launchHomePage();
+		stackpage=homepage.goToStackPage();
+//		SignInPage  signinpage =homepage.gotoLoginPage();
+//		signinpage.successfullSignIn("sunandab", "sunasdet112");
 		
 		excelReader = new ExcelReader("stack", readConfig.getExcelPath());
 	}
 	
 	
-	@Test
+	@Test(priority=1)
 	public void TestValidPythoncodeOfOperationsInStackPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		StackPage stackpage = homePage.goToStackPage();
 		stackpage.goToOperationsInStackPage();
 		logger.info("logger is on OperationsInStack page");
 		stackpage.goToTryEditorPage();
@@ -43,73 +46,75 @@ public class StackPageTest extends BaseTest
 		stackpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 		String outputmessage=stackpage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 	}
 	
-	@Test
+	@Test(priority=2)
 	public void TestInValidPythoncodeOfOperationsInStackPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		StackPage stackpage = homePage.goToStackPage();
-		stackpage.goToOperationsInStackPage();
-		stackpage.goToTryEditorPage();
+		//stackpage.goToOperationsInStackPage();
+		//stackpage.goToTryEditorPage();
 		stackpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=stackpage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 	
-	@Test
+	@Test(priority=3)
 	public void TestValidPythonCodeOfImplementationPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		StackPage stackpage = homePage.goToStackPage();
+		stackpage.launchstackpage();
 		stackpage.goToImplementationPage();
 		stackpage.goToTryEditorPage();
 		stackpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 2, "pythonCode"));
 		String outputmessage=stackpage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(2, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(2, "Result"));
 	}
 	
-	@Test
+	@Test(priority=4)
 	public void TestInValidPythoncodeOfImplementationPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		StackPage stackpage = homePage.goToStackPage();
-        stackpage.goToImplementationPage();
-		stackpage.goToTryEditorPage();
+		//stackpage.goToImplementationPage();
+		//stackpage.goToTryEditorPage();
 		stackpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage = stackpage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 	
 	
-	@Test
+	@Test(priority=5)
 	public void TestValidPythonCodeOfApplicationsPage()
-	{
-		HomePage homePage=new HomePage(driver);
-		StackPage stackpage = homePage.goToStackPage();
+	{	
+		stackpage.launchstackpage();
 		stackpage.goToApplicationsPage();
 		stackpage.goToTryEditorPage();
 		stackpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel(2, "pythonCode"));
 		String outputmessage=stackpage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(2, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(2, "Result"));
 	}
 	
-	@Test
+	@Test(priority=6)
 	public void TestInValidPythoncodeOfApplicationsPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		StackPage stackpage = homePage.goToStackPage();
-		stackpage.goToApplicationsPage();
-		stackpage.goToTryEditorPage();
+		//stackpage.goToApplicationsPage();
+		//stackpage.goToTryEditorPage();
 		stackpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=stackpage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+	}
+	@Test(priority=7)
+	public void TestpracticeQuestionsPage()
+	{	
+		stackpage.launchstackpage();
+		stackpage.goToOperationsInStackPage();
+		stackpage.goToPracticeQuestionsPage();
+		String pageTitle=driver.getTitle();
+		AssertJUnit.assertEquals("Practice Questions",pageTitle);
+
 	}
 
 }

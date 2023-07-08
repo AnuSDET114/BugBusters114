@@ -1,5 +1,8 @@
 package com.numpyninja.test.pages;
 
+
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -16,25 +19,24 @@ public class LinkedListPageTest extends BaseTest
 {
 	
 	ExcelReader excelReader;
-	HomePage homepage;
+	LinkedListpage linkedListpage;
 	public static Logger logger = LogManager.getLogger(LinkedListPageTest.class);
 	
 	@BeforeTest
 	public void initializeReader()
 	{
-		launchURL();
-		homepage=new HomePage(driver);
-		SignInPage  signinpage =homepage.gotoLoginPage();
-		signinpage.successfullSignIn("sunandab", "sunasdet112");
+		HomePage homepage=new HomePage(driver);
+		homepage.launchHomePage();
+		linkedListpage=homepage.goToLinkedListPage();
+//		SignInPage  signinpage =homepage.gotoLoginPage();
+//		signinpage.successfullSignIn("sunandab", "sunasdet112");
 		
 		excelReader = new ExcelReader("linkedList", readConfig.getExcelPath());
 	}
 	
-@Test
+@Test(priority=1)
 public void TestValidPythoncodeOfIntroductionPage()
-{
-	HomePage homePage=new HomePage(driver);
-	LinkedListpage linkedListpage = homePage.goToLinkedListPage();
+{	
 	linkedListpage.goToIntroductionPage();
 	logger.info("logger is on introduction page");
 	linkedListpage.goToTryEditorPage();
@@ -42,47 +44,42 @@ public void TestValidPythoncodeOfIntroductionPage()
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 	String outputmessage=linkedListpage.getOutputMessage();
 	logger.info("after clicking on run button ouput message is:" +outputmessage);
-	Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+	AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 }
 
-@Test
+@Test(priority=2)
 public void TestInValidPythoncodeOfIntroductionPage()
 {
-	HomePage homePage=new HomePage(driver);
-	LinkedListpage linkedListpage = homePage.goToLinkedListPage();
-	linkedListpage.goToIntroductionPage();
-	linkedListpage.goToTryEditorPage();
+	//linkedListpage.goToIntroductionPage();
+	//linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 	String alertMessage=linkedListpage.getAlertMessage();
 	logger.info("after clicking on run button ouput message is:" +alertMessage);
-	Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+	AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 }
 
 
-@Test
+@Test(priority=3)
 public void TestValidPythonCodeOfCreateALinkedListsPage()
 {
-	HomePage homePage=new HomePage(driver);
-	LinkedListpage linkedListpage = homePage.goToLinkedListPage();
+	linkedListpage.launchLinkedlistPage();
 	linkedListpage.goToCreateALinkedListPage();
 	linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 2, "pythonCode"));
 	String outputmessage=linkedListpage.getOutputMessage();
 	logger.info("after clicking on run button ouput message is:" +outputmessage);
-	Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(2, "Result"));
+	AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(2, "Result"));
 }
 
-@Test
+@Test(priority=4)
 public void TestInValidPythoncodeOfCreateALinkedListPage()
 {
-	HomePage homePage=new HomePage(driver);
-	LinkedListpage linkedListpage = homePage.goToLinkedListPage();
-	linkedListpage.goToCreateALinkedListPage();
-	linkedListpage.goToTryEditorPage();
+	//linkedListpage.goToCreateALinkedListPage();
+	//linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 	String alertMessage = linkedListpage.getAlertMessage();
 	logger.info("after clicking on run button ouput message is:" +alertMessage);
-	Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+	AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 }
 
 
@@ -90,142 +87,142 @@ public void TestInValidPythoncodeOfCreateALinkedListPage()
 
 
 
-@Test
+@Test(priority=5)
 public void TestValidPythonCodeOfTypesofLinkedListsPage()
-{
-	HomePage homePage=new HomePage(driver);
-	LinkedListpage linkedListpage = homePage.goToLinkedListPage();
+{	
+	linkedListpage.launchLinkedlistPage();
 	linkedListpage.goToTypesofLinkedListPage();
 	linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel(2, "pythonCode"));
 	String outputmessage=linkedListpage.getOutputMessage();
 	logger.info("after clicking on run button ouput message is:" +outputmessage);
-	Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(2, "Result"));
+	AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(2, "Result"));
 }
 
-@Test
+@Test(priority=6)
 public void TestInValidPythoncodeOfTypesofLinkedListPage()
 {
-	HomePage homePage=new HomePage(driver);
-	LinkedListpage linkedListpage = homePage.goToLinkedListPage();
-	linkedListpage.goToTypesofLinkedListPage();
-	linkedListpage.goToTryEditorPage();
+	//linkedListpage.goToTypesofLinkedListPage();
+	//linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 	String alertMessage=linkedListpage.getAlertMessage();
 	logger.info("after clicking on run button ouput message is:" +alertMessage);
-	Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+	AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 }
 
 
 
 
-@Test
+@Test(priority=7)
 public void TestvalidPhythoncodeOfImplementedLinkedListsPage()
 {
-	HomePage homePage=new HomePage(driver);
-	LinkedListpage linkedListpage = homePage.goToLinkedListPage();
+	linkedListpage.launchLinkedlistPage();
 	linkedListpage.goToImplementedLinkedListPage();
 	linkedListpage.goToTryEditorPage();
-	
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 	String outputmessage=linkedListpage.getOutputMessage();
 	logger.info("after clicking on run button ouput message is:" +outputmessage);
-	Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+	AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 }
 
-@Test
+@Test(priority=8)
 public void TestInValidPythoncodeOfImplementedLinkedListPage()
 {
-	HomePage homePage=new HomePage(driver);
-	LinkedListpage linkedListpage = homePage.goToLinkedListPage();
-	linkedListpage.goToImplementedLinkedListPage();
-	linkedListpage.goToTryEditorPage();
+	//linkedListpage.goToImplementedLinkedListPage();
+	//linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 	String alertMessage=linkedListpage.getAlertMessage();
 	logger.info("after clicking on run button ouput message is:" +alertMessage);
-	Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+	AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 }
 
 
-@Test
+@Test(priority=9)
 public void TestValidPhythoncodeOfTraversalLinkedListsPage()
 {
-	HomePage homePage=new HomePage(driver);
-	LinkedListpage linkedListpage = homePage.goToLinkedListPage();
+	linkedListpage.launchLinkedlistPage();
 	linkedListpage.goToTraversalLinkedListPage();
 	linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 2, "pythonCode"));
 	String outputmessage=linkedListpage.getOutputMessage();
 	logger.info("after clicking on run button ouput message is:" +outputmessage);
-	Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(2, "Result"));
+	AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(2, "Result"));
 }
 
-@Test
+@Test(priority=10)
 public void TestInValidPythoncodeOfTraversalLinkedListPage()
 {
-	HomePage homePage=new HomePage(driver);
-	LinkedListpage linkedListpage = homePage.goToLinkedListPage();
-	linkedListpage.goToTraversalLinkedListPage();
-	linkedListpage.goToTryEditorPage();
+	//linkedListpage.goToTraversalLinkedListPage();
+	//linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 3, "pythonCode"));
 	String alertMessage=linkedListpage.getAlertMessage();
 	logger.info("after clicking on run button ouput message is:" +alertMessage);
-	Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(3, "Result"));
+	AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(3, "Result"));
 }
 
 
-@Test
+@Test(priority=11)
 public void TestValidPythoncodeOfInsertionLinkedListsPage()
 {
-	HomePage homePage=new HomePage(driver);
-	LinkedListpage linkedListpage = homePage.goToLinkedListPage();
+	linkedListpage.launchLinkedlistPage();
 	linkedListpage.goToInsertionLinkedListPage();
 	linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel(0, "pythonCode"));
 	String outputmessage=linkedListpage.getOutputMessage();
 	logger.info("after clicking on run button ouput message is:" +outputmessage);
-	Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+	AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 }
 
-@Test
+@Test(priority=12)
 public void TestInValidPythoncodeOfInsertionLinkedListPage()
 {
-	HomePage homePage=new HomePage(driver);
-	LinkedListpage linkedListpage = homePage.goToLinkedListPage();
-	linkedListpage.goToInsertionLinkedListPage();
-	linkedListpage.goToTryEditorPage();
+	//linkedListpage.goToInsertionLinkedListPage();
+	//linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 3, "pythonCode"));
 	String alertMessage=linkedListpage.getAlertMessage();
 	logger.info("after clicking on run button ouput message is:" +alertMessage);
-	Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(3, "Result"));
+	AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(3, "Result"));
 }
 
 
-@Test
+@Test(priority=13)
 public void TestValidPhythoncodeOfDeletionLinkedListsPage()
-{
-	HomePage homePage=new HomePage(driver);
-	LinkedListpage linkedListpage = homePage.goToLinkedListPage();
+{	
+	linkedListpage.launchLinkedlistPage();
 	linkedListpage.goToDeletionLinkedListPage();
 	linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel(2, "pythonCode"));
 	String outputmessage=linkedListpage.getOutputMessage();
 	logger.info("after clicking on run button ouput message is:" +outputmessage);
-	Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(2, "Result"));
+	AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(2, "Result"));
 }
 
-@Test
+@Test(priority=14)
 public void TestInValidPythoncodeOfDeletionLinkedListPage()
 {
-	HomePage homePage=new HomePage(driver);
-	LinkedListpage linkedListpage = homePage.goToLinkedListPage();
-	linkedListpage.goToDeletionLinkedListPage();
-	linkedListpage.goToTryEditorPage();
+	//linkedListpage.goToDeletionLinkedListPage();
+	//linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel(3, "pythonCode"));
 	String alertMessage=linkedListpage.getAlertMessage();
 	logger.info("after clicking on run button ouput message is:" +alertMessage);
-	Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(3, "Result"));
+	AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(3, "Result"));
 }
+@Test(priority=15)
+public void TestpracticeQuestionsPage()
+{	
+	linkedListpage.launchLinkedlistPage();
+	linkedListpage.goToIntroductionPage();
+	linkedListpage.goToPracticeQuestionsPage();
+	String pageTitle=driver.getTitle();
+	AssertJUnit.assertEquals("Practice Questions",pageTitle);
+
+}
+
+
+
+
+
+
 }
 
 

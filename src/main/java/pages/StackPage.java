@@ -2,6 +2,7 @@ package pages;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -27,6 +28,10 @@ public static Logger logger = LogManager.getLogger(StackPage.class);
 	
 	@FindBy(xpath = "//a[contains(text(),'Applications')]")
 	WebElement applicationsstackelement;
+	
+	@FindBy(css = "a[href='/stack/practice']")
+	WebElement practicequestionselement;
+	
 	
 	@FindBy(xpath = "//a[contains(text(),'Try here>>>')]")
 	WebElement tryeditorelement;
@@ -57,6 +62,13 @@ public static Logger logger = LogManager.getLogger(StackPage.class);
 		//logger.info("click on" +applictionsstackelement.getText());
 	}
 	
+	public void goToPracticeQuestionsPage()
+	{
+		practicequestionselement.click();
+	
+	}
+	
+	
 	
 	public String getAlertMessage()
 	{
@@ -79,7 +91,9 @@ public static Logger logger = LogManager.getLogger(StackPage.class);
 //		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 //		WebElement element = wait.until(
 //		ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".codemirror-line")));
-		new Actions(driver).sendKeys(codeEditorElement, inputText).perform();
+		Actions actions=new Actions(driver);
+		actions.click(codeEditorElement).keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.DELETE).build().perform();
+		actions.sendKeys(codeEditorElement, inputText).perform();
 		//logger.info("passing text on texteditior");
 //		element.sendKeys("hello");
 		runElement.click();
@@ -90,6 +104,10 @@ public static Logger logger = LogManager.getLogger(StackPage.class);
 	public String getOutputMessage() {
 		return outputElement.getText();
 	}
+	public void launchstackpage() {
+		driver.get("https://dsportalapp.herokuapp.com/stack/");
+	}
+	
 	
 }
 

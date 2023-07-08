@@ -74,5 +74,9 @@ public class ExcelReader {
 		return excelData.get(rowNumber).get(colHeaderName);
 		
 	}
+	
+	public Integer getRowCount() {
+		return excelData.size();
+	}
 
 }

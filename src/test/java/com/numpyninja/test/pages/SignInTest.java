@@ -1,8 +1,8 @@
 package com.numpyninja.test.pages;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import static org.testng.Assert.assertEquals;
-
-import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,7 +33,7 @@ public class SignInTest  extends BaseTest
 		SignInPage signInPage = homePage.gotoLoginPage();
 		signInPage.successfullSignIn("sunandab", "sunasdet112");
 		logger.info("Afetr signin Alertmessage is:" +homePage.getAlertMessage());
-		assertEquals("You are logged in",homePage.getAlertMessage());
+		AssertJUnit.assertEquals("You are logged in",homePage.getAlertMessage());
 		
 	}
 	@Test
@@ -42,17 +42,16 @@ public class SignInTest  extends BaseTest
 		SignInPage signInPage = homePage.gotoLoginPage();
 		signInPage.login(excelReader.getGivenColumnFromExcel(3, "username"), excelReader.getGivenColumnFromExcel(3, "password"));
 		logger.info("Afetr providing creaentials Alertmessage is:" +signInPage.getAlertMessage());
-		assertEquals(excelReader.getGivenColumnFromExcel(3, "expectedmessage"),signInPage.getAlertMessage());	
+		AssertJUnit.assertEquals(excelReader.getGivenColumnFromExcel(3, "expectedmessage"),signInPage.getAlertMessage());	
 	}
 	 
 	@Test
-	public void validateInvalidPassWord() throws IOException {
+	public void validateInvalidPassWord() {
 		HomePage homePage=new HomePage(driver);
 		SignInPage signInPage = homePage.gotoLoginPage();
 		signInPage.login("sunandab", "sunasdet111");
 		logger.info("Afetr providing creaentials Alertmessage is:" +signInPage.getAlertMessage());
-		captureScreenShot(driver, "validateInvalidPassWord");
-		assertEquals("Invalid Username and Password",signInPage.getAlertMessage());	
+		AssertJUnit.assertEquals("Invalid Username and Password",signInPage.getAlertMessage());	
 	}
 	
 	@Test

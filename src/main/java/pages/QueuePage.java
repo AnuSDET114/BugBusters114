@@ -2,6 +2,7 @@ package pages;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -94,7 +95,9 @@ public class QueuePage
 //			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 //			WebElement element = wait.until(
 //			ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".codemirror-line")));
-			new Actions(driver).sendKeys(codeEditorElement, inputText).perform();
+			Actions actions=new Actions(driver);
+			actions.click(codeEditorElement).keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.DELETE).build().perform();
+			actions.sendKeys(codeEditorElement, inputText).perform();
 			//logger.info("passing text on texteditior");
 //			element.sendKeys("hello");
 			runElement.click();
@@ -106,6 +109,9 @@ public class QueuePage
 			return outputElement.getText();
 		}
 
+		public void LaunchQueuePage() {
+			driver.get("https://dsportalapp.herokuapp.com/queue/");
+		}
 		
 		
 	}

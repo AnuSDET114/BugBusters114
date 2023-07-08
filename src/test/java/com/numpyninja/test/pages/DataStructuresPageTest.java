@@ -1,14 +1,17 @@
 package com.numpyninja.test.pages;
 
+	
+	import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 	import org.apache.logging.log4j.LogManager;
-	import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Logger;
 	import org.testng.Assert;
 	import org.testng.annotations.BeforeTest;
 	import org.testng.annotations.Test;
 
 	import base.BaseTest;
 	import pages.HomePage;
-	import pages.DataStructuresPage;
+import pages.DataStructuresPage;
 	import pages.SignInPage;
 	import utilities.ExcelReader;
 
@@ -17,25 +20,26 @@ package com.numpyninja.test.pages;
 		
 		ExcelReader excelReader;
 		HomePage homepage;
+		DataStructuresPage datastructurespage;
 		public static Logger logger = LogManager.getLogger(DataStructuresPageTest.class);
 		
 		@BeforeTest
 		public void initializeReader()
 		{
-			launchURL();
+			
 			homepage=new HomePage(driver);
-			SignInPage  signinpage =homepage.gotoLoginPage();
-			signinpage.successfullSignIn("sunandab", "sunasdet112");
+			homepage.launchHomePage();
+			datastructurespage = homepage.goToDataStructuresPage();
+//			SignInPage  signinpage =homepage.gotoLoginPage();
+//			signinpage.successfullSignIn("sunandab", "sunasdet112");
 			
 			excelReader = new ExcelReader("DataStructures", readConfig.getExcelPath());
 			
 		}
 
-		@Test
+		@Test(priority = 1)
 		public void TestValidPythoncodeOfTimeComplexityPage()
 		{
-			HomePage homePage=new HomePage(driver);
-			DataStructuresPage datastructurespage = homePage.goToDataStructuresPage();
 			datastructurespage.goToTimeComplexityPage();
 			logger.info("logger is on Timecomplexitypage");
 			datastructurespage.goToTryEditorPage();
@@ -43,21 +47,30 @@ package com.numpyninja.test.pages;
 			datastructurespage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythoncode"));
 			String outputmessage=datastructurespage.getOutputMessage();
 			logger.info("after clicking on run button ouput message is:" +outputmessage);
-			Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+			AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 		}
 
-		@Test
+		@Test(priority = 2)
 		public void TestInValidPythoncodeOfTimeComplexityPage()
 		{
-			HomePage homePage=new HomePage(driver);
-			DataStructuresPage dataStructuresPage = homePage.goToDataStructuresPage();
-			dataStructuresPage.goToTimeComplexityPage();
-			dataStructuresPage.goToTryEditorPage();
-			dataStructuresPage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythoncode"));
-			String alertMessage=dataStructuresPage.getAlertMessage();
+//			datastructurespage.goToTimeComplexityPage();
+//			datastructurespage.goToTryEditorPage();
+			datastructurespage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythoncode"));
+			String alertMessage=datastructurespage.getAlertMessage();
 			logger.info("after clicking on run button ouput message is:" +alertMessage);
-			Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+			AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 		}
 		
+		@Test(priority = 3)
+		public void TestpracticeQuestionsPage()
+		{
+			datastructurespage.launchDatastructuresPage();
+			datastructurespage.goToTimeComplexityPage();
+			datastructurespage.goToPracticeQuestionsPage();
+			String pageTitle=driver.getTitle();
+			AssertJUnit.assertEquals("Practice Questions",pageTitle);
+
+		}
+
 		
 	}

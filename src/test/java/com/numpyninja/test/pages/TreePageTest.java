@@ -1,5 +1,7 @@
 package com.numpyninja.test.pages;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -15,25 +17,24 @@ import utilities.ExcelReader;
 public class TreePageTest extends BaseTest
 {
 	ExcelReader excelReader;
-	HomePage homepage;
+	TreePage treepage;
 	public static Logger logger = LogManager.getLogger(GraphPageTest.class);
 	
 	@BeforeTest
 	public void initializeReader()
 	{
 		launchURL();
-		homepage=new HomePage(driver);
-		SignInPage  signinpage =homepage.gotoLoginPage();
-		signinpage.successfullSignIn("sunandab", "sunasdet112");
+		HomePage homepage=new HomePage(driver);
+		treepage=homepage.goToTreePage();
+//		SignInPage  signinpage =homepage.gotoLoginPage();
+//		signinpage.successfullSignIn("sunandab", "sunasdet112");
 		
 		excelReader = new ExcelReader("Tree", readConfig.getExcelPath());
 	}
 	
-	@Test
+	@Test(priority=1)
 	public void TestValidPythoncodeOfOverViewOfTreesPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
 		treepage.goToOverViewOftreesPage();
 		logger.info("logger is on overviewoftrees page");
 		treepage.goToTryEditorPage();
@@ -41,28 +42,25 @@ public class TreePageTest extends BaseTest
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 		String outputmessage=treepage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 	}
 
-	@Test
+	@Test(priority=2)
 	public void TestInValidPythoncodeOfOverViewOfTreesPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
-		treepage.goToOverViewOftreesPage();
-		treepage.goToTryEditorPage();
+		//treepage.goToOverViewOftreesPage();
+		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 
 
-	@Test
+	@Test(priority=3)
 	public void TestValidPythoncodeTerminologiesPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
+		treepage.LaunchTreePage();
 		treepage.goToTerminologiesPage();
 		logger.info("logger is on terminologies page");
 		treepage.goToTryEditorPage();
@@ -70,57 +68,52 @@ public class TreePageTest extends BaseTest
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 		String outputmessage=treepage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 	}
 
-	@Test
+	@Test(priority=4)
 	public void TestInValidPythoncodeOfTerminologiesPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
-		treepage.goToTerminologiesPage();
-		treepage.goToTryEditorPage();
+		//treepage.goToTerminologiesPage();
+		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 
 
-	@Test
+	@Test(priority=5)
 	public void TestValidPythoncodeOfTypesOfTreesPage()
+
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
+		treepage.LaunchTreePage();
 		treepage.goToTypesOfTreesPage();
 		logger.info("logger is on typesoftrees page");
 		treepage.goToTryEditorPage();
 		logger.info("loggeris redirected to tryeditor page");
-		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 2, "pythonCode"));
+		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel(2, "pythonCode"));
 		String outputmessage=treepage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(2, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(2, "Result"));
 	}
 
-	@Test
+	@Test(priority=6)
 	public void TestInValidPythoncodeOfTypesOfTreePage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
-		treepage.goToTypesOfTreesPage();
-		treepage.goToTryEditorPage();
+		//treepage.goToTypesOfTreesPage();
+		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 	
 	
-	@Test
+	@Test(priority=7)
 	public void TestValidPythoncodeOfTraversalIllustrationPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
+		treepage.LaunchTreePage();
 		treepage.goToTraversalIllustrationPage();
 		logger.info("logger is on traversalillustration page");
 		treepage.goToTryEditorPage();
@@ -128,27 +121,24 @@ public class TreePageTest extends BaseTest
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 		String outputmessage=treepage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 	}
 
-	@Test
+	@Test(priority=8)
 	public void TestInValidPythoncodeOfTraversalIllustrationPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
-		treepage.goToTraversalIllustrationPage();
-		treepage.goToTryEditorPage();
+		//treepage.goToTraversalIllustrationPage();
+		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 	
-	@Test
+	@Test(priority=9)
 	public void TestValidPythoncodeOfBinaryTreesPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
+		treepage.LaunchTreePage();
 		treepage.goToBinaryTreesPage();
 		logger.info("logger is on binarytrees page");
 		treepage.goToTryEditorPage();
@@ -156,28 +146,25 @@ public class TreePageTest extends BaseTest
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 		String outputmessage=treepage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 	}
 
-	@Test
+	@Test(priority=10)
 	public void TestInValidPythoncodeOfBinaryTreesPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
-		treepage.goToBinaryTreesPage();
-		treepage.goToTryEditorPage();
+		//treepage.goToBinaryTreesPage();
+		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 	
 	
-	@Test
+	@Test(priority=11)
 	public void TestValidPythoncodeOfTypesOfBinaryTreesPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
+		treepage.LaunchTreePage();
 		treepage.goTOTypesOfBinaryTreesPage();
 		logger.info("logger is on typesofbinarytrees page");
 		treepage.goToTryEditorPage();
@@ -185,28 +172,25 @@ public class TreePageTest extends BaseTest
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 		String outputmessage=treepage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 	}
 
-	@Test
+	@Test(priority=12)
 	public void TestInValidPythoncodeOfTypesOfBinaryTreesPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
-		treepage.goTOTypesOfBinaryTreesPage();
-		treepage.goToTryEditorPage();
+		//treepage.goTOTypesOfBinaryTreesPage();
+		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 	
 	
-	@Test
+	@Test(priority=13)
 	public void TestValidPythoncodeOfImplementationInPythonPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
+		treepage.LaunchTreePage();
 		treepage.goToImplementationinPythonPage();
 		logger.info("logger is on implementatationinpython page");
 		treepage.goToTryEditorPage();
@@ -214,27 +198,24 @@ public class TreePageTest extends BaseTest
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 		String outputmessage=treepage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 	}
 
-	@Test
+	@Test(priority=14)
 	public void TestInValidPythoncodeOfImplementationInPythonPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
-		treepage.goToImplementationinPythonPage();
-		treepage.goToTryEditorPage();
+		//treepage.goToImplementationinPythonPage();
+		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 	
-	@Test
+	@Test(priority=15)
 	public void TestValidPythoncodeOfTreeTraversalPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
+		treepage.LaunchTreePage();
 		treepage.goToTreeTraversalsPage();
 		logger.info("logger is on treetraversal page");
 		treepage.goToTryEditorPage();
@@ -242,28 +223,25 @@ public class TreePageTest extends BaseTest
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 		String outputmessage=treepage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 	}
 
-	@Test
+	@Test(priority=16)
 	public void TestInValidPythoncodeOfTreeTraversalPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
-		treepage.goToTreeTraversalsPage();
-		treepage.goToTryEditorPage();
+		//treepage.goToTreeTraversalsPage();
+		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 	
 	
-	@Test
+	@Test(priority=17)
 	public void TestValidPythoncodeOfBinaryTreeTraversalPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
+		treepage.LaunchTreePage();
 		treepage.goToBinaryTreeTraversalPage();
 		logger.info("logger is on binarytreetraversal page");
 		treepage.goToTryEditorPage();
@@ -271,27 +249,24 @@ public class TreePageTest extends BaseTest
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 		String outputmessage=treepage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 	}
 
-	@Test
+	@Test(priority=18)
 	public void TestInValidPythoncodeOfBinaryTreeTraversalPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
-		treepage.goToBinaryTreeTraversalPage();
-		treepage.goToTryEditorPage();
+		//treepage.goToBinaryTreeTraversalPage();
+		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 	
-	@Test
+	@Test(priority=19)
 	public void TestValidPythoncodeOfImplementationOfBinaryTreesPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
+		treepage.LaunchTreePage();
 		treepage.goToImplementationOfBinaryTreesPage();
 		logger.info("logger is on implementationofbinarytrees page");
 		treepage.goToTryEditorPage();
@@ -299,29 +274,26 @@ public class TreePageTest extends BaseTest
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 		String outputmessage=treepage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 	}
 
-	@Test
+	@Test(priority=20)
 	public void TestInValidPythoncodeOfImplementationOfBinaryTreesPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
-		treepage.goToImplementationOfBinaryTreesPage();
-		treepage.goToTryEditorPage();
+		//treepage.goToImplementationOfBinaryTreesPage();
+		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 	
 	
 	
-	@Test
+	@Test(priority=21)
 	public void TestValidPythoncodeOfApplicationOfBinaryTreesPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
+		treepage.LaunchTreePage();
 		treepage.goToApplicationOfBinaryTreespage();
 		logger.info("logger is on applicationofbinarytrees page");
 		treepage.goToTryEditorPage();
@@ -329,26 +301,23 @@ public class TreePageTest extends BaseTest
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 		String outputmessage=treepage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 	}
 
-	@Test
+	@Test(priority=22)
 	public void TestInValidPythoncodeOfApplicationOfBinaryTreesPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
-		treepage.goToApplicationOfBinaryTreespage();
-		treepage.goToTryEditorPage();
+		//treepage.goToApplicationOfBinaryTreespage();
+		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
-	@Test
+	@Test(priority=23)
 	public void TestValidPythoncodeOfBinarySearchTreesPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
+		treepage.LaunchTreePage();
 		treepage.goToApplicationOfBinaryTreespage();
 		logger.info("logger is on binarysearchtrees page");
 		treepage.goToTryEditorPage();
@@ -356,27 +325,24 @@ public class TreePageTest extends BaseTest
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 		String outputmessage=treepage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 	}
 
-	@Test
+	@Test(priority=24)
 	public void TestInValidPythoncodeOfBinarySearchTreesPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
-		treepage.goToBinarySearchTreesPage();
-		treepage.goToTryEditorPage();
+		//treepage.goToBinarySearchTreesPage();
+		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 	
-	@Test
+	@Test(priority=25)
 	public void TestValidPythoncodeOfimplementationOfBSTPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
+		treepage.LaunchTreePage();
 		treepage.goToImplementationOfBSTPage();
 		logger.info("logger is on implementationofBst page");
 		treepage.goToTryEditorPage();
@@ -384,50 +350,32 @@ public class TreePageTest extends BaseTest
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 		String outputmessage=treepage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 	}
 
-	@Test
+	@Test(priority=26)
 	public void TestInValidPythoncodeOfImplentationOfBSTPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
-		treepage.goToImplementationOfBSTPage();
-		treepage.goToTryEditorPage();
+		//treepage.goToImplementationOfBSTPage();
+		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 	
 	
 
-	@Test
+	@Test(priority=27)
 	public void TestpracticeQuestionsPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		TreePage treepage = homePage.goToTreePage();
+		treepage.LaunchTreePage();
 		treepage.goToOverViewOftreesPage();
 		treepage.goToPracticeQuestionsPage();
 		String pageTitle=driver.getTitle();
-		Assert.assertEquals("Practice Questions",pageTitle);
+		AssertJUnit.assertEquals("Practice Questions",pageTitle);
 	
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

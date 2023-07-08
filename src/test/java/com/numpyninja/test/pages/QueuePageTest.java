@@ -1,5 +1,7 @@
 package com.numpyninja.test.pages;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -15,25 +17,24 @@ import utilities.ExcelReader;
 public class QueuePageTest extends BaseTest
 {
 	ExcelReader excelReader;
-	HomePage homepage;
+	QueuePage queuepage;
 	public static Logger logger = LogManager.getLogger(QueuePageTest.class);
 	
 	@BeforeTest
 	public void initializeReader()
 	{
-		launchURL();
-		homepage=new HomePage(driver);
-		SignInPage  signinpage =homepage.gotoLoginPage();
-		signinpage.successfullSignIn("sunandab", "sunasdet112");
+		HomePage homepage=new HomePage(driver);
+		homepage.launchHomePage();
+		queuepage=homepage.goToQueuePage();
+//		SignInPage  signinpage =homepage.gotoLoginPage();
+//		signinpage.successfullSignIn("sunandab", "sunasdet112");
 		
 		excelReader = new ExcelReader("Queue", readConfig.getExcelPath());
 	}
 	
-	@Test
+	@Test(priority=1)
 	public void TestValidPythoncodeOfImplementationsListPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		QueuePage queuepage = homePage.goToQueuePage();
 		queuepage.goToImplementationsListPage();
 		logger.info("logger is on implementationqueuelist page");
 		queuepage.goToTryEditorPage();
@@ -41,27 +42,24 @@ public class QueuePageTest extends BaseTest
 		queuepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 		String outputmessage=queuepage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 	}
 
-	@Test
+	@Test(priority=2)
 	public void TestInValidPythoncodeOfImplementationListPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		QueuePage queuepage = homePage.goToQueuePage();
-		queuepage.goToImplementationsListPage();
-		queuepage.goToTryEditorPage();
+		//queuepage.goToImplementationsListPage();
+		//queuepage.goToTryEditorPage();
 		queuepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=queuepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 
-	@Test
+	@Test(priority=3)
 	public void TestValidPythoncodeOfImplementationCollectionsPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		QueuePage queuepage = homePage.goToQueuePage();
+		queuepage.LaunchQueuePage();
 		queuepage.goToImplementationCollectionPage();
 		logger.info("logger is on implementationcollections page");
 		queuepage.goToTryEditorPage();
@@ -69,27 +67,24 @@ public class QueuePageTest extends BaseTest
 		queuepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 2, "pythonCode"));
 		String outputmessage=queuepage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(2, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(2, "Result"));
 	}
 
-	@Test
+	@Test(priority=4)
 	public void TestInValidPythoncodeOfImplementationCollectionPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		QueuePage queuepage = homePage.goToQueuePage();
-		queuepage.goToImplementationCollectionPage();
-		queuepage.goToTryEditorPage();
+		//queuepage.goToImplementationCollectionPage();
+		//queuepage.goToTryEditorPage();
 		queuepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=queuepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 
-	@Test
+	@Test(priority=5)
 	public void TestValidPythoncodeOfImplementationArrayPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		QueuePage queuepage = homePage.goToQueuePage();
+		queuepage.LaunchQueuePage();
 		queuepage.goToImplementationArrayPage();
 		logger.info("logger is on implementationarray page");
 		queuepage.goToTryEditorPage();
@@ -97,27 +92,24 @@ public class QueuePageTest extends BaseTest
 		queuepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 		String outputmessage=queuepage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 	}
 
-	@Test
+	@Test(priority=6)
 	public void TestInValidPythoncodeOfImplementationArrayPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		QueuePage queuepage = homePage.goToQueuePage();
-		queuepage.goToImplementationArrayPage();
-		queuepage.goToTryEditorPage();
+		//queuepage.goToImplementationArrayPage();
+		//queuepage.goToTryEditorPage();
 		queuepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=queuepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 
-	@Test
+	@Test(priority=7)
 	public void TestValidPythoncodeOfQueueOperationsPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		QueuePage queuepage = homePage.goToQueuePage();
+		queuepage.LaunchQueuePage();
 		queuepage.goToQueueOperationsPage();
 		logger.info("logger is on queueoperations page");
 		queuepage.goToTryEditorPage();
@@ -125,31 +117,28 @@ public class QueuePageTest extends BaseTest
 		queuepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 0, "pythonCode"));
 		String outputmessage=queuepage.getOutputMessage();
 		logger.info("after clicking on run button ouput message is:" +outputmessage);
-		Assert.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
+		AssertJUnit.assertEquals(outputmessage,excelReader.getGivenColumnFromExcel(0, "Result"));
 	}
 
-	@Test
+	@Test(priority=8)
 	public void TestInValidPythoncodeOfQueueOperationsPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		QueuePage queuepage = homePage.goToQueuePage();
-		queuepage.goToQueueOperationsPage();
-		queuepage.goToTryEditorPage();
+		//queuepage.goToQueueOperationsPage();
+		//queuepage.goToTryEditorPage();
 		queuepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=queuepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
-		Assert.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
+		AssertJUnit.assertEquals(alertMessage,excelReader.getGivenColumnFromExcel(1, "Result"));
 	}
 
-	@Test
+	@Test(priority=9)
 	public void TestpracticeQuestionsPage()
 	{
-		HomePage homePage=new HomePage(driver);
-		QueuePage queuepage = homePage.goToQueuePage();
+		queuepage.LaunchQueuePage();
 		queuepage.goToImplementationsListPage();
 		queuepage.goToPracticeQuestionsPage();
 		String pageTitle=driver.getTitle();
-		Assert.assertEquals("Practice Questions",pageTitle);
+		AssertJUnit.assertEquals("Practice Questions",pageTitle);
 
 	}
 

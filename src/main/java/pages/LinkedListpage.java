@@ -2,6 +2,7 @@ package pages;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -42,6 +43,10 @@ public static Logger logger = LogManager.getLogger(LinkedListpage.class);
 	
 	@FindBy(css = "a[href='deletion-in-linked-list']")
 	WebElement deletionlinkedlistelement;
+	
+	@FindBy(css = "a[href='/linked-list/practice']")
+	WebElement practicequestionselement;
+	
 	
 	
 	@FindBy(css = "a[href='/tryEditor']")
@@ -111,6 +116,12 @@ public static Logger logger = LogManager.getLogger(LinkedListpage.class);
 	}
 	
 	
+	public void goToPracticeQuestionsPage()
+	{
+		practicequestionselement.click();
+	
+	}
+	
 	
 	public void goToTryEditorPage()
 	{
@@ -122,7 +133,12 @@ public static Logger logger = LogManager.getLogger(LinkedListpage.class);
 //		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 //		WebElement element = wait.until(
 //		ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".codemirror-line")));
-		new Actions(driver).sendKeys(codeEditorElement, inputText).perform();
+		Actions actions = new Actions(driver);
+		actions.click(codeEditorElement).keyDown(Keys.CONTROL)
+	    .sendKeys("a")
+	    .keyUp(Keys.CONTROL)
+	    .sendKeys(Keys.DELETE).build().perform();
+		actions.sendKeys(codeEditorElement, inputText).perform();
 		//logger.info("passing text on texteditior");
 //		element.sendKeys("hello");
 		runElement.click();
@@ -133,5 +149,10 @@ public static Logger logger = LogManager.getLogger(LinkedListpage.class);
 	public String getOutputMessage() {
 		return outputElement.getText();
 	}
+	
+	public void launchLinkedlistPage() {
+		driver.get("https://dsportalapp.herokuapp.com/linked-list/");
+	}
+	
 	
 }
