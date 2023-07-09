@@ -45,7 +45,7 @@ public class ExtentListener implements ITestListener {
 	}
 	
 	//OnStart method is called when any test starts
-	public void onstart(ITestContext Result)
+	public void onStart(ITestContext Result)
 	{
 		configureReport();
 		System.out.println("On Start method invoked....");

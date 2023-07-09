@@ -4,6 +4,8 @@ import org.testng.annotations.Test;
 import org.testng.AssertJUnit;
 import static org.testng.Assert.assertEquals;
 
+import java.io.IOException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
@@ -33,12 +35,13 @@ public class RegistrationTest extends BaseTest
 		
 	}
 	@Test (priority = 2)
-	public  void validuserNameWithEmptyPassword()
+	public  void validuserNameWithEmptyPassword() throws IOException
 	{
 		registerPage.performRegistrationPage("sunandab","","");
 		String validationMessage = registerPage.getValidationMessage("password");
 		logger.info("Afetr providing creaentials Alertmessage is:" +validationMessage);
-		AssertJUnit.assertEquals("Please fill out this field.",validationMessage);
+		captureScreenShot(driver,"validuserNameWithEmptyPassword");
+		AssertJUnit.assertEquals("Please fill out this field.123",validationMessage);
 		
 	}
 	
