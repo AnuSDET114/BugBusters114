@@ -23,7 +23,6 @@ public class HomePageTest extends BaseTest
 	
 	ExcelReader	excelReader;
 	
-	@BeforeTest
 	public void initialize() {
 		homePage = new HomePage(driver);
 		excelReader = new ExcelReader("homepage", readConfig.getExcelPath());
@@ -31,13 +30,13 @@ public class HomePageTest extends BaseTest
 	
 	@Test(priority = 1)
 	public void clickOnGetStartedOnLaunchPage() {
+		initialize();
 		homePage.clickOnLaunchURLGetStartedButton();
 	}
 	
 	@Test(priority = 2, dataProvider = "getStartedOptionsData")
 	public void clickOnGetStartedButtonsWithOutLogin(String getStartedOption)
 	{
-//		HomePage homePage=new HomePage(driver);
 		homePage.clickOnGetStartedButton(getStartedOption);
 		logger.info("user redirected to  page");
 		Assert.assertEquals("You are not logged in",homePage.getAlertMessage());
@@ -45,7 +44,6 @@ public class HomePageTest extends BaseTest
 	@Test(priority = 3, dataProvider = "testData")
 	public void performDropDownWithOutLogin(String dropDownName)
 	{
-//		HomePage homePage=new HomePage(driver);
 		switch(dropDownName) {
 		case "DataStructures":
 			homePage.goToDataStructuresPage();
@@ -78,7 +76,6 @@ public class HomePageTest extends BaseTest
 	@Test(priority = 5)
 	public void gotoRegisterPage()
 	{
-//		HomePage homePage = new HomePage(driver);
 		logger.info("user redirected to register page");
 		homePage.register();
 		
@@ -87,7 +84,6 @@ public class HomePageTest extends BaseTest
 	public void login()
 	{
 		
-//		HomePage homePage = new HomePage(driver);
 		logger.info("User redirecting to login page");
 		homePage.gotoLoginPage();
 		

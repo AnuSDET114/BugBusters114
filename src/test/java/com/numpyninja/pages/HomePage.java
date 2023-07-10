@@ -85,7 +85,6 @@ public class HomePage {
 
 	public DataStructuresPage goToDataStructuresPage()
 	{
-		String s = dataStructuresGetStartedElement.getAccessibleName();
 		dataStructuresGetStartedElement.click();
 		DataStructuresPage datastructurespage = new DataStructuresPage(driver);
 		return datastructurespage;

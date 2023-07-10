@@ -26,21 +26,18 @@ public class LinkedListPageTest extends BaseTest
 	LinkedListpage linkedListpage;
 	public static Logger logger = LogManager.getLogger(LinkedListPageTest.class);
 	
-	@BeforeTest
-	public void initializeReader()
+	public void initialize()
 	{
 		HomePage homepage=new HomePage(driver);
 		homepage.launchHomePage();
 		linkedListpage=homepage.goToLinkedListPage();
-//		SignInPage  signinpage =homepage.gotoLoginPage();
-//		signinpage.successfullSignIn("sunandab", "sunasdet112");
-		
 		excelReader = new ExcelReader("linkedList", readConfig.getExcelPath());
 	}
 	
 @Test(priority=1)
 public void TestValidPythoncodeOfIntroductionPage()
 {	
+	initialize();
 	linkedListpage.goToIntroductionPage();
 	logger.info("logger is on introduction page");
 	linkedListpage.goToTryEditorPage();
@@ -78,8 +75,6 @@ public void TestValidPythonCodeOfCreateALinkedListsPage()
 @Test(priority=4)
 public void TestInValidPythoncodeOfCreateALinkedListPage()
 {
-	//linkedListpage.goToCreateALinkedListPage();
-	//linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 	String alertMessage = linkedListpage.getAlertMessage();
 	logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -106,8 +101,6 @@ public void TestValidPythonCodeOfTypesofLinkedListsPage()
 @Test(priority=6)
 public void TestInValidPythoncodeOfTypesofLinkedListPage()
 {
-	//linkedListpage.goToTypesofLinkedListPage();
-	//linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 	String alertMessage=linkedListpage.getAlertMessage();
 	logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -132,8 +125,6 @@ public void TestvalidPhythoncodeOfImplementedLinkedListsPage()
 @Test(priority=8)
 public void TestInValidPythoncodeOfImplementedLinkedListPage()
 {
-	//linkedListpage.goToImplementedLinkedListPage();
-	//linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 	String alertMessage=linkedListpage.getAlertMessage();
 	logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -156,8 +147,6 @@ public void TestValidPhythoncodeOfTraversalLinkedListsPage()
 @Test(priority=10)
 public void TestInValidPythoncodeOfTraversalLinkedListPage()
 {
-	//linkedListpage.goToTraversalLinkedListPage();
-	//linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 3, "pythonCode"));
 	String alertMessage=linkedListpage.getAlertMessage();
 	logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -180,8 +169,6 @@ public void TestValidPythoncodeOfInsertionLinkedListsPage()
 @Test(priority=12)
 public void TestInValidPythoncodeOfInsertionLinkedListPage()
 {
-	//linkedListpage.goToInsertionLinkedListPage();
-	//linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 3, "pythonCode"));
 	String alertMessage=linkedListpage.getAlertMessage();
 	logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -204,8 +191,6 @@ public void TestValidPhythoncodeOfDeletionLinkedListsPage()
 @Test(priority=14)
 public void TestInValidPythoncodeOfDeletionLinkedListPage()
 {
-	//linkedListpage.goToDeletionLinkedListPage();
-	//linkedListpage.goToTryEditorPage();
 	linkedListpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel(3, "pythonCode"));
 	String alertMessage=linkedListpage.getAlertMessage();
 	logger.info("after clicking on run button ouput message is:" +alertMessage);

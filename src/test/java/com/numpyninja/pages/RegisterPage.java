@@ -4,8 +4,10 @@ import java.time.Duration;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -45,12 +47,10 @@ public static Logger logger = LogManager.getLogger(RegisterPage.class);
 	
 	public void performRegistrationPage(String userName,String password,String confirmationpassword)
 	{
+		usernameElement.clear();
 		usernameElement.sendKeys(userName);
-//		if(password != null)
-			paswordElement.sendKeys(password);
-		
-//		if(confirmationpassword != null)
-			cofirmationpaswordElement.sendKeys(confirmationpassword);
+		paswordElement.sendKeys(password);
+		cofirmationpaswordElement.sendKeys(confirmationpassword);
 		
 		registerlinkElement.click();
 		

@@ -26,16 +26,12 @@ public class StackPageTest extends BaseTest
 	StackPage stackpage;
 	public static Logger logger = LogManager.getLogger(StackPageTest.class);
 	
-	@BeforeTest
-	public void initializeReader()
+	public void initialize()
 	{
 	
 		HomePage homepage=new HomePage(driver);
 		homepage.launchHomePage();
 		stackpage=homepage.goToStackPage();
-//		SignInPage  signinpage =homepage.gotoLoginPage();
-//		signinpage.successfullSignIn("sunandab", "sunasdet112");
-		
 		excelReader = new ExcelReader("stack", readConfig.getExcelPath());
 	}
 	
@@ -43,6 +39,7 @@ public class StackPageTest extends BaseTest
 	@Test(priority=1)
 	public void TestValidPythoncodeOfOperationsInStackPage()
 	{
+		initialize();
 		stackpage.goToOperationsInStackPage();
 		logger.info("logger is on OperationsInStack page");
 		stackpage.goToTryEditorPage();
@@ -56,8 +53,6 @@ public class StackPageTest extends BaseTest
 	@Test(priority=2)
 	public void TestInValidPythoncodeOfOperationsInStackPage()
 	{
-		//stackpage.goToOperationsInStackPage();
-		//stackpage.goToTryEditorPage();
 		stackpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=stackpage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -79,8 +74,6 @@ public class StackPageTest extends BaseTest
 	@Test(priority=4)
 	public void TestInValidPythoncodeOfImplementationPage()
 	{
-		//stackpage.goToImplementationPage();
-		//stackpage.goToTryEditorPage();
 		stackpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage = stackpage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -103,8 +96,6 @@ public class StackPageTest extends BaseTest
 	@Test(priority=6)
 	public void TestInValidPythoncodeOfApplicationsPage()
 	{
-		//stackpage.goToApplicationsPage();
-		//stackpage.goToTryEditorPage();
 		stackpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=stackpage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);

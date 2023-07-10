@@ -27,16 +27,12 @@ import org.testng.annotations.Test;
 		DataStructuresPage datastructurespage;
 		public static Logger logger = LogManager.getLogger(DataStructuresPageTest.class);
 		
-		@BeforeTest
 		public void initializeReader()
 		{
 			
 			homepage=new HomePage(driver);
 			homepage.launchHomePage();
 			datastructurespage = homepage.goToDataStructuresPage();
-//			SignInPage  signinpage =homepage.gotoLoginPage();
-//			signinpage.successfullSignIn("sunandab", "sunasdet112");
-			
 			excelReader = new ExcelReader("DataStructures", readConfig.getExcelPath());
 			
 		}
@@ -44,6 +40,7 @@ import org.testng.annotations.Test;
 		@Test(priority = 1)
 		public void TestValidPythoncodeOfTimeComplexityPage()
 		{
+			initializeReader();
 			datastructurespage.goToTimeComplexityPage();
 			logger.info("logger is on Timecomplexitypage");
 			datastructurespage.goToTryEditorPage();
@@ -57,8 +54,6 @@ import org.testng.annotations.Test;
 		@Test(priority = 2)
 		public void TestInValidPythoncodeOfTimeComplexityPage()
 		{
-//			datastructurespage.goToTimeComplexityPage();
-//			datastructurespage.goToTryEditorPage();
 			datastructurespage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythoncode"));
 			String alertMessage=datastructurespage.getAlertMessage();
 			logger.info("after clicking on run button ouput message is:" +alertMessage);

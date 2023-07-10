@@ -25,7 +25,6 @@ public class RegistrationTest extends BaseTest
 	
 	RegisterPage registerPage = null;
 	
-	@BeforeTest
 	public void initialize() {
 		registerPage = new RegisterPage(driver);
 	}
@@ -33,6 +32,7 @@ public class RegistrationTest extends BaseTest
 	@Test(priority = 1)
 	public  void validregistrationWithEmptyFeilds()
 	{
+		initialize();
 		registerPage.clickOnRegister();
 		logger.info(" user is redirected to register page");
 		AssertJUnit.assertEquals("Please fill out this field.",registerPage.getValidationMessage("userName"));

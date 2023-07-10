@@ -140,17 +140,12 @@ public static Logger logger = LogManager.getLogger(ArrayPage.class);
 		
 		public void sendTextToEditorAndRun(String inputText,String buttonName) {
 			
-//			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//			WebElement element = wait.until(
-//			ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".codemirror-line")));
 			Actions actions = new Actions(driver);
 			actions.click(codeEditorElement).keyDown(Keys.CONTROL)
 		    .sendKeys("a")
 		    .keyUp(Keys.CONTROL)
 		    .sendKeys(Keys.DELETE).build().perform();
 			actions.sendKeys(codeEditorElement, inputText).perform();
-			//logger.info("passing text on texteditior");
-//			element.sendKeys("hello");
 			if(buttonName.equalsIgnoreCase("run"))
 			{
 				runElement.click();

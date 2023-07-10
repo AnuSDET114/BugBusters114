@@ -26,21 +26,18 @@ public class GraphPageTest extends BaseTest
 	GraphPage graphpage;
 	public static Logger logger = LogManager.getLogger(GraphPageTest.class);
 	
-	@BeforeTest
-	public void initializeReader()
+	public void initialize()
 	{
 		HomePage homePage=new HomePage(driver);
 		homePage.launchHomePage();
 		graphpage=homePage.goToGraphPage();
-//		SignInPage  signinpage =homepage.gotoLoginPage();
-//		signinpage.successfullSignIn("sunandab", "sunasdet112");
-		
 		excelReader = new ExcelReader("Graph", readConfig.getExcelPath());
 	}
 	
 @Test(priority=1)
 public void TestValidPythoncodeOfGraphPage()
 {
+	initialize();
 	graphpage.goToGraphLinkPage();
 	logger.info("logger is on graph page");
 	graphpage.goToTryEditorPage();
@@ -54,8 +51,6 @@ public void TestValidPythoncodeOfGraphPage()
 @Test(priority=2)
 public void TestInValidPythoncodeOfGraphPage()
 {
-	//graphtpage.goToGraphLinkPage();
-	//graphtpage.goToTryEditorPage();
 	graphpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythoncode"));
 	String alertMessage=graphpage.getAlertMessage();
 	logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -79,8 +74,6 @@ public void TestValidPythoncodeOfRepresentationGraphPage()
 @Test(priority=4)
 public void TestInValidPythoncodeOfRepresentationGraphPage()
 {
-	//graphpage.goToRepresentationGraphPage();
-	//graphpage.goToTryEditorPage();
 	graphpage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythoncode"));
 	String alertMessage=graphpage.getAlertMessage();
 	logger.info("after clicking on run button ouput message is:" +alertMessage);

@@ -24,21 +24,18 @@ public class QueuePageTest extends BaseTest
 	QueuePage queuepage;
 	public static Logger logger = LogManager.getLogger(QueuePageTest.class);
 	
-	@BeforeTest
-	public void initializeReader()
+	public void initialize()
 	{
 		HomePage homepage=new HomePage(driver);
 		homepage.launchHomePage();
 		queuepage=homepage.goToQueuePage();
-//		SignInPage  signinpage =homepage.gotoLoginPage();
-//		signinpage.successfullSignIn("sunandab", "sunasdet112");
-		
 		excelReader = new ExcelReader("Queue", readConfig.getExcelPath());
 	}
 	
 	@Test(priority=1)
 	public void TestValidPythoncodeOfImplementationsListPage()
 	{
+		initialize();
 		queuepage.goToImplementationsListPage();
 		logger.info("logger is on implementationqueuelist page");
 		queuepage.goToTryEditorPage();

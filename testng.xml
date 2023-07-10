@@ -1,55 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="false">
-	<!-- <listeners>
-		<listener class-name="utilities.ExtentListener"></listener>
-	</listeners> -->
-  	<test name="Test">
+	 
+	 <test name="Test" preserve-order="true">
     	<classes>
 			<class name="com.numpyninja.testcases.HomePageTest"></class>
 			<class name="com.numpyninja.testcases.RegistrationTest"></class>
 			<class name="com.numpyninja.testcases.SignInTest"></class>
+			<class name="com.numpyninja.testcases.DataStructuresPageTest"></class>
+			<class name="com.numpyninja.testcases.ArrayPageTest"></class>
+			<class name="com.numpyninja.testcases.LinkedListPageTest"></class>
+			<class name="com.numpyninja.testcases.StackPageTest"></class>
+			<class name="com.numpyninja.testcases.QueuePageTest"></class>
+			<class name="com.numpyninja.testcases.TreePageTest"></class>
+			<class name="com.numpyninja.testcases.GraphPageTest"></class>
 		</classes>
   	</test> 
-  	<test name="Test1">
-		 <classes>
-			 <class name="com.numpyninja.testcases.DataStructuresPageTest"></class>
-		 </classes>
-	 </test>
-  	
-  	<test name="Test2">
-		 <classes>
-			 <class name="com.numpyninja.testcases.ArrayPageTest"></class>
-		 </classes>
-	 </test> 
-  	 
-	 
-	<test name="Test3">
-		 <classes>
-			 <class name="com.numpyninja.testcases.LinkedListPageTest"></class>
-		 </classes>
-	 </test>
-	 <test name="Test4">
-		 <classes>
-			 <class name="com.numpyninja.testcases.StackPageTest"></class>
-		 </classes>
-	 </test>
-	 <test name="Test5">
-		 <classes>
-			 <class name="com.numpyninja.testcases.QueuePageTest"></class>
-		 </classes>
-	 </test>
-	 <test name="Test6">
-		 <classes>
-			 <class name="com.numpyninja.testcases.TreePageTest"></class>
-		 </classes>
-	 </test>
-	 <test name="Test7">
-		 <classes>
-			 <class name="com.numpyninja.testcases.GraphPageTest"></class>
-		 </classes>
-	 </test> 
-	 
-	 
 	 
 </suite> 

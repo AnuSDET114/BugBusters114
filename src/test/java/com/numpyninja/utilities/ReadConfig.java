@@ -27,7 +27,7 @@ public class ReadConfig {
     }
     public String getTestUrl()
     {
-    	String value = properties.getProperty("testUrl");
+    	String value = properties.getProperty("url");
     	
     	if(value!=null)
     		return value;

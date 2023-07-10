@@ -24,21 +24,18 @@ public class TreePageTest extends BaseTest
 	TreePage treepage;
 	public static Logger logger = LogManager.getLogger(GraphPageTest.class);
 	
-	@BeforeTest
-	public void initializeReader()
+	public void initialize()
 	{
-		launchURL();
 		HomePage homepage=new HomePage(driver);
+		homepage.launchHomePage();
 		treepage=homepage.goToTreePage();
-//		SignInPage  signinpage =homepage.gotoLoginPage();
-//		signinpage.successfullSignIn("sunandab", "sunasdet112");
-		
 		excelReader = new ExcelReader("Tree", readConfig.getExcelPath());
 	}
 	
 	@Test(priority=1)
 	public void TestValidPythoncodeOfOverViewOfTreesPage()
 	{
+		initialize();
 		treepage.goToOverViewOftreesPage();
 		logger.info("logger is on overviewoftrees page");
 		treepage.goToTryEditorPage();
@@ -52,8 +49,6 @@ public class TreePageTest extends BaseTest
 	@Test(priority=2)
 	public void TestInValidPythoncodeOfOverViewOfTreesPage()
 	{
-		//treepage.goToOverViewOftreesPage();
-		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -78,8 +73,6 @@ public class TreePageTest extends BaseTest
 	@Test(priority=4)
 	public void TestInValidPythoncodeOfTerminologiesPage()
 	{
-		//treepage.goToTerminologiesPage();
-		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -105,8 +98,6 @@ public class TreePageTest extends BaseTest
 	@Test(priority=6)
 	public void TestInValidPythoncodeOfTypesOfTreePage()
 	{
-		//treepage.goToTypesOfTreesPage();
-		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -156,8 +147,6 @@ public class TreePageTest extends BaseTest
 	@Test(priority=10)
 	public void TestInValidPythoncodeOfBinaryTreesPage()
 	{
-		//treepage.goToBinaryTreesPage();
-		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -182,8 +171,6 @@ public class TreePageTest extends BaseTest
 	@Test(priority=12)
 	public void TestInValidPythoncodeOfTypesOfBinaryTreesPage()
 	{
-		//treepage.goTOTypesOfBinaryTreesPage();
-		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -208,8 +195,6 @@ public class TreePageTest extends BaseTest
 	@Test(priority=14)
 	public void TestInValidPythoncodeOfImplementationInPythonPage()
 	{
-		//treepage.goToImplementationinPythonPage();
-		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -233,8 +218,6 @@ public class TreePageTest extends BaseTest
 	@Test(priority=16)
 	public void TestInValidPythoncodeOfTreeTraversalPage()
 	{
-		//treepage.goToTreeTraversalsPage();
-		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -259,8 +242,6 @@ public class TreePageTest extends BaseTest
 	@Test(priority=18)
 	public void TestInValidPythoncodeOfBinaryTreeTraversalPage()
 	{
-		//treepage.goToBinaryTreeTraversalPage();
-		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -284,8 +265,6 @@ public class TreePageTest extends BaseTest
 	@Test(priority=20)
 	public void TestInValidPythoncodeOfImplementationOfBinaryTreesPage()
 	{
-		//treepage.goToImplementationOfBinaryTreesPage();
-		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -311,8 +290,6 @@ public class TreePageTest extends BaseTest
 	@Test(priority=22)
 	public void TestInValidPythoncodeOfApplicationOfBinaryTreesPage()
 	{
-		//treepage.goToApplicationOfBinaryTreespage();
-		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -335,8 +312,6 @@ public class TreePageTest extends BaseTest
 	@Test(priority=24)
 	public void TestInValidPythoncodeOfBinarySearchTreesPage()
 	{
-		//treepage.goToBinarySearchTreesPage();
-		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);
@@ -360,8 +335,6 @@ public class TreePageTest extends BaseTest
 	@Test(priority=26)
 	public void TestInValidPythoncodeOfImplentationOfBSTPage()
 	{
-		//treepage.goToImplementationOfBSTPage();
-		//treepage.goToTryEditorPage();
 		treepage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"));
 		String alertMessage=treepage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);

@@ -24,14 +24,11 @@ public class ArrayPageTest extends BaseTest
 	ArrayPage arraypage;
 	public static Logger logger = LogManager.getLogger(ArrayPageTest.class);
 	
-	@BeforeTest
-	public void initializeReader()
+	public void initialize()
 	{
 		HomePage homePage = new HomePage(driver);
 		homePage.launchHomePage();
 		arraypage = homePage.goToArrayPage();
-//		SignInPage  signinpage =homepage.gotoLoginPage();
-//		signinpage.successfullSignIn("sunandab", "sunasdet112");
 		
 		excelReader = new ExcelReader("array", readConfig.getExcelPath());
 	}
@@ -40,6 +37,7 @@ public class ArrayPageTest extends BaseTest
 	@Test(priority=1)
 	public void TestValidPythoncodeOfArraysInPythonPage()
 	{
+		initialize();
 		arraypage.goToArraysInPythonPage();
 		logger.info("logger is on introduction page");
 		arraypage.goToTryEditorPage();
@@ -53,8 +51,6 @@ public class ArrayPageTest extends BaseTest
 	@Test(priority=2)
 	public void TestInValidPythoncodeOfArraysInPythonPage()
 	{
-//		arraypage.goToArraysInPythonPage();
-//		arraypage.goToTryEditorPage();
 		arraypage.sendTextToEditorAndRun(excelReader.getGivenColumnFromExcel( 1, "pythonCode"),"run");
 		String alertMessage=arraypage.getAlertMessage();
 		logger.info("after clicking on run button ouput message is:" +alertMessage);

@@ -23,14 +23,13 @@ public class SignInTest  extends BaseTest
 	
 	ExcelReader excelReader;
 	
-	@BeforeTest
-	public void readExcel() {
+	public void initialize() {
 		excelReader = new ExcelReader("signindata", readConfig.getExcelPath());
 		
 	}
 	public static Logger logger = LogManager.getLogger(SignInTest.class);
 	
-	@Test
+	@Test(priority = 4)
 	public void validateSignInSuccessFully()
 	{
 		HomePage homePage=new HomePage(driver);
@@ -40,8 +39,9 @@ public class SignInTest  extends BaseTest
 		AssertJUnit.assertEquals("You are logged in",homePage.getAlertMessage());
 		
 	}
-	@Test
+	@Test (priority =  1)
 	public void validateInvalidUserName() {
+		initialize();
 		HomePage homePage=new HomePage(driver);
 		SignInPage signInPage = homePage.gotoLoginPage();
 		signInPage.login(excelReader.getGivenColumnFromExcel(3, "username"), excelReader.getGivenColumnFromExcel(3, "password"));
@@ -49,7 +49,7 @@ public class SignInTest  extends BaseTest
 		AssertJUnit.assertEquals(excelReader.getGivenColumnFromExcel(3, "expectedmessage"),signInPage.getAlertMessage());	
 	}
 	 
-	@Test
+	@Test(priority = 2)
 	public void validateInvalidPassWord() {
 		HomePage homePage=new HomePage(driver);
 		SignInPage signInPage = homePage.gotoLoginPage();
@@ -58,7 +58,7 @@ public class SignInTest  extends BaseTest
 		AssertJUnit.assertEquals("Invalid Username and Password",signInPage.getAlertMessage());	
 	}
 	
-	@Test
+	@Test(priority = 3)
 	public void performRegisterPageValidation() {
 		HomePage homePage=new HomePage(driver);
 		SignInPage signInPage = homePage.gotoLoginPage();
