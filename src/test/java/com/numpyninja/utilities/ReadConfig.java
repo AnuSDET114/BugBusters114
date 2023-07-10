@@ -1,4 +1,4 @@
-package utilities;
+package com.numpyninja.utilities;
 
 import java.io.FileInputStream;
 import java.util.Properties;

@@ -1,4 +1,4 @@
-package pages;
+package com.numpyninja.pages;
 
 
 import org.apache.logging.log4j.LogManager;

@@ -6,47 +6,47 @@
 	</listeners> -->
   	<test name="Test">
     	<classes>
-			<class name="com.numpyninja.test.pages.HomePageTest"></class>
-			<class name="com.numpyninja.test.pages.RegistrationTest"></class>
-			<class name="com.numpyninja.test.pages.SignInTest"></class>
+			<class name="com.numpyninja.testcases.HomePageTest"></class>
+			<class name="com.numpyninja.testcases.RegistrationTest"></class>
+			<class name="com.numpyninja.testcases.SignInTest"></class>
 		</classes>
   	</test> 
   	<test name="Test1">
 		 <classes>
-			 <class name="com.numpyninja.test.pages.DataStructuresPageTest"></class>
+			 <class name="com.numpyninja.testcases.DataStructuresPageTest"></class>
 		 </classes>
 	 </test>
   	
   	<test name="Test2">
 		 <classes>
-			 <class name="com.numpyninja.test.pages.ArrayPageTest"></class>
+			 <class name="com.numpyninja.testcases.ArrayPageTest"></class>
 		 </classes>
 	 </test> 
   	 
 	 
 	<test name="Test3">
 		 <classes>
-			 <class name="com.numpyninja.test.pages.LinkedListPageTest"></class>
+			 <class name="com.numpyninja.testcases.LinkedListPageTest"></class>
 		 </classes>
 	 </test>
 	 <test name="Test4">
 		 <classes>
-			 <class name="com.numpyninja.test.pages.StackPageTest"></class>
+			 <class name="com.numpyninja.testcases.StackPageTest"></class>
 		 </classes>
 	 </test>
 	 <test name="Test5">
 		 <classes>
-			 <class name="com.numpyninja.test.pages.QueuePageTest"></class>
+			 <class name="com.numpyninja.testcases.QueuePageTest"></class>
 		 </classes>
 	 </test>
 	 <test name="Test6">
 		 <classes>
-			 <class name="com.numpyninja.test.pages.TreePageTest"></class>
+			 <class name="com.numpyninja.testcases.TreePageTest"></class>
 		 </classes>
 	 </test>
 	 <test name="Test7">
 		 <classes>
-			 <class name="com.numpyninja.test.pages.GraphPageTest"></class>
+			 <class name="com.numpyninja.testcases.GraphPageTest"></class>
 		 </classes>
 	 </test> 
 	 

@@ -1,4 +1,4 @@
-package base;
+package com.numpyninja.base;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,9 +20,11 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
+
+import com.numpyninja.pages.HomePage;
+import com.numpyninja.utilities.ReadConfig;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
-import pages.HomePage;
-import utilities.ReadConfig;
 
 public class BaseTest {
 	
@@ -36,11 +38,6 @@ public class BaseTest {
 	
 	@BeforeSuite
 	public void setup() {
-		
-		//if(driver == null) {
-		      
-			//Properties.load(Figs);
-		//}
 		
 		if(browser.equalsIgnoreCase("chrome")) {
 			
@@ -69,19 +66,10 @@ public class BaseTest {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		
 		driver.get(url);
-		//implicit wait of 10secs
-	    
-	    
-		
-		//for logging
-		
-//		PropertyConfigurator.configure("log4j2.properties");
 	}
 	
-//	@BeforeSuite
 	public void launchURL() {
 		driver.get(url);
-		//implicit wait of 10secs
 	    
 	    driver.findElement(By.className("btn")).click();
 	}

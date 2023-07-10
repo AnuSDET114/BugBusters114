@@ -1,9 +1,12 @@
-package utilities;
+package com.numpyninja.utilities;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -15,12 +18,16 @@ import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
+import com.numpyninja.base.BaseTest;
+import com.numpyninja.pages.ArrayPage;
 
-public class ExtentListener implements ITestListener {
+public class ExtentListener extends BaseTest implements ITestListener {
 	
 	ExtentSparkReporter htmlReporter;
 	ExtentReports reports;
 	ExtentTest test;
+	
+	public static Logger logger = LogManager.getLogger(ExtentListener.class);
 	
 	public void configureReport()
 	{
@@ -63,6 +70,11 @@ public class ExtentListener implements ITestListener {
 	{
 		System.out.println("Name of test method failed:" + Result.getName() );
 		test = reports.createTest(Result.getName() );
+		try {
+			captureScreenShot(driver, Result.getName());
+		} catch (IOException e) {
+			logger.error("Exception occurred in creating screenshot");
+		}
 		test.log(Status.FAIL, MarkupHelper.createLabel("Name of the failed test case is: " + Result.getName(),ExtentColor.RED));
 		
 		String screenShotPath = System.getProperty("user.dir")+ "\\ScreenShots\\" + Result.getName() + ".png";

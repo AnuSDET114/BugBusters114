@@ -1,16 +1,19 @@
-package com.numpyninja.test.pages;
+package com.numpyninja.testcases;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import base.BaseTest;
-import pages.HomePage;
-import utilities.ExcelReader;
+import com.numpyninja.base.BaseTest;
+import com.numpyninja.pages.HomePage;
+import com.numpyninja.utilities.ExcelReader;
+import com.numpyninja.utilities.ExtentListener;
 
+@Listeners(ExtentListener.class)
 public class HomePageTest extends BaseTest
 {
 	

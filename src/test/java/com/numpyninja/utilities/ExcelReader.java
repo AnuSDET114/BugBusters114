@@ -1,4 +1,4 @@
-package utilities;
+package com.numpyninja.utilities;
 
 import java.io.File;
 import java.io.IOException;

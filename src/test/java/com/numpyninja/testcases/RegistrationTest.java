@@ -1,6 +1,13 @@
-package com.numpyninja.test.pages;
+package com.numpyninja.testcases;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+
+import com.numpyninja.base.BaseTest;
+import com.numpyninja.pages.HomePage;
+import com.numpyninja.pages.RegisterPage;
+import com.numpyninja.utilities.ExtentListener;
+
 import org.testng.AssertJUnit;
 import static org.testng.Assert.assertEquals;
 
@@ -10,10 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
 
-import base.BaseTest;
-import pages.HomePage;
-import pages.RegisterPage;
-
+@Listeners(ExtentListener.class)
 public class RegistrationTest extends BaseTest
 {
 
@@ -40,7 +44,6 @@ public class RegistrationTest extends BaseTest
 		registerPage.performRegistrationPage("sunandab","","");
 		String validationMessage = registerPage.getValidationMessage("password");
 		logger.info("Afetr providing creaentials Alertmessage is:" +validationMessage);
-		captureScreenShot(driver,"validuserNameWithEmptyPassword");
 		AssertJUnit.assertEquals("Please fill out this field.123",validationMessage);
 		
 	}

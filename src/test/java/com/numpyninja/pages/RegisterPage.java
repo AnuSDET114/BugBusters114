@@ -1,4 +1,4 @@
-package pages;
+package com.numpyninja.pages;
 
 import java.time.Duration;
 
